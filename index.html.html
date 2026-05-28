@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học HSK 1 Đột Phá - Luyện Từ Vựng & 50 Câu Dài</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Noto Sans SC (for beautiful Hanzi rendering) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-hanzi {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.03);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.15);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.25);
+        }
+        /* Animations */
+        @keyframes pop {
+            0% { transform: scale(0.96); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop {
+            animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 2s infinite ease-in-out;
+        }
+        /* Theme Transition */
+        .transition-theme {
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 transition-theme min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 transition-colors duration-300 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 text-white p-2.5 rounded-2xl shadow-md shadow-indigo-100 flex items-center justify-center">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg text-slate-900 tracking-tight leading-tight">HSK 1 Cao Cấp</h1>
+                    <p class="text-[10px] sm:text-xs text-slate-500 font-medium">Luyện Siêu Trí Nhớ • 50 Câu Đàm Thoại Tổng Hợp</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <!-- Theme selection -->
+                <div class="hidden md:flex items-center bg-slate-100 p-1 rounded-xl text-xs font-semibold text-slate-600 space-x-1">
+                    <button onclick="setTheme('indigo')" id="btn-theme-indigo" class="px-3 py-1.5 rounded-lg transition-all duration-200 bg-white text-indigo-600 shadow-xs">🌱 Lục Bảo</button>
+                    <button onclick="setTheme('rose')" id="btn-theme-rose" class="px-3 py-1.5 rounded-lg transition-all duration-200">🌸 Anh Đào</button>
+                    <button onclick="setTheme('dark')" id="btn-theme-dark" class="px-3 py-1.5 rounded-lg transition-all duration-200">🌌 Huyền Vũ</button>
+                </div>
+
+                <!-- Stats: Streak & Points -->
+                <div class="flex items-center space-x-2 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-xl">
+                    <i class="fa-solid fa-fire text-amber-500 text-md animate-bounce"></i>
+                    <span id="streak-counter" class="font-extrabold text-amber-700 text-xs sm:text-sm">0 ngày</span>
+                </div>
+                <div class="flex items-center space-x-2 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl">
+                    <i class="fa-solid fa-star text-indigo-500 text-sm"></i>
+                    <span id="score-counter" class="font-extrabold text-indigo-700 text-xs sm:text-sm">0 EXP</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col lg:flex-row gap-6">
+        
+        <!-- Left Sidebar: Controls & Lesson Filter -->
+        <section class="w-full lg:w-80 flex-shrink-0 flex flex-col gap-5">
+            
+            <!-- Lesson Selector Card -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-extrabold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-book-open-reader text-indigo-500"></i>
+                        <span>Giới hạn bài học</span>
+                    </h3>
+                    <button onclick="selectAllLessons()" class="text-xs text-indigo-600 hover:text-indigo-700 font-bold">Chọn hết</button>
+                </div>
+                
+                <div class="space-y-2.5" id="lesson-list">
+                    <!-- Dynamic checkboxes for Lessons 1 - 5 -->
+                    <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all duration-200">
+                        <input type="checkbox" checked value="1" onchange="updateLessonSelection()" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                        <div class="ml-3">
+                            <span class="block font-bold text-xs sm:text-sm text-slate-800">Bài 1: 你好</span>
+                            <span class="block text-[10px] text-slate-500">Chào hỏi cơ bản & Bộ nét chữ</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all duration-200">
+                        <input type="checkbox" checked value="2" onchange="updateLessonSelection()" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                        <div class="ml-3">
+                            <span class="block font-bold text-xs sm:text-sm text-slate-800">Bài 2: 汉语不太难</span>
+                            <span class="block text-[10px] text-slate-500">Thanh nhẹ, biến điệu "不" & Gia đình</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all duration-200">
+                        <input type="checkbox" checked value="3" onchange="updateLessonSelection()" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                        <div class="ml-3">
+                            <span class="block font-bold text-xs sm:text-sm text-slate-800">Bài 3: 明天见</span>
+                            <span class="block text-[10px] text-slate-500">Bưu điện, Ngân hàng & Quy tắc "ü"</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all duration-200">
+                        <input type="checkbox" checked value="4" onchange="updateLessonSelection()" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                        <div class="ml-3">
+                            <span class="block font-bold text-xs sm:text-sm text-slate-800">Bài 4: 你去哪儿</span>
+                            <span class="block text-[10px] text-slate-500">Hỏi địa điểm, các thứ trong tuần</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all duration-200">
+                        <input type="checkbox" checked value="5" onchange="updateLessonSelection()" class="w-4 h-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                        <div class="ml-3">
+                            <span class="block font-bold text-xs sm:text-sm text-slate-800">Bài 5: 这是王老师</span>
+                            <span class="block text-[10px] text-slate-500">Giới thiệu, Khách khí & Đồ uống</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Mode Selector Card -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+                <h3 class="font-extrabold text-slate-900 text-xs uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                    <i class="fa-solid fa-layer-group text-indigo-500"></i>
+                    <span>Chế độ học tập</span>
+                </h3>
+                <div class="grid grid-cols-1 gap-3">
+                    <!-- Hybrid Challenge button -->
+                    <button onclick="switchMode('hybrid')" id="btn-mode-hybrid" class="w-full text-left p-3 rounded-xl border-2 transition-all duration-200 flex items-center space-x-3.5 bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-100">
+                        <div class="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-cubes text-lg"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="block font-bold text-xs sm:text-sm">Thử Thách Kép (Từ vựng)</span>
+                            <span class="block text-[10px] opacity-90 truncate">Chọn nghĩa và đoán Pinyin nhanh</span>
+                        </div>
+                    </button>
+                    
+                    <!-- Sentence challenger button -->
+                    <button onclick="switchMode('sentence')" id="btn-mode-sentence" class="w-full text-left p-3 rounded-xl border-2 transition-all duration-200 flex items-center space-x-3.5 bg-white border-slate-200 hover:border-slate-300 text-slate-800">
+                        <div class="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
+                            <i class="fa-solid fa-quote-left text-md"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="block font-bold text-xs sm:text-sm">Giải Mã 50 Câu Dài</span>
+                            <span class="block text-[10px] text-slate-500 truncate">Xếp nghĩa Việt cho câu Hán tự</span>
+                        </div>
+                    </button>
+
+                    <!-- Vietnamese to Chinese Pinyin mode button -->
+                    <button onclick="switchMode('vietpinyin')" id="btn-mode-vietpinyin" class="w-full text-left p-3 rounded-xl border-2 transition-all duration-200 flex items-center space-x-3.5 bg-white border-slate-200 hover:border-slate-300 text-slate-800">
+                        <div class="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
+                            <i class="fa-solid fa-keyboard text-md"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="block font-bold text-xs sm:text-sm">Dịch Pinyin từ Tiếng Việt</span>
+                            <span class="block text-[10px] text-slate-500 truncate">Xem nghĩa Tiếng Việt, gõ cả câu Pinyin</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PDF Files Integrated Info -->
+            <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl text-xs text-indigo-800 flex flex-col gap-2">
+                <div class="flex items-start space-x-2.5">
+                    <i class="fa-solid fa-file-pdf text-xl text-indigo-500 mt-0.5 shrink-0"></i>
+                    <div class="space-y-1">
+                        <span class="font-extrabold block text-indigo-900">Tài liệu đã tích hợp:</span>
+                        <p class="text-[10px] opacity-90 leading-relaxed font-mono">
+                            hihi.pdf, hihihi.pdf, hihihihi.pdf, hihihihihi.pdf, hihihihihihi.pdf
+                        </p>
+                    </div>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-1 border-t border-indigo-100 pt-2 font-medium">
+                    *Hệ thống tự động đồng bộ hóa kho từ vựng và 50 bài đàm thoại dài của cả 5 tệp giáo án slide.
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Section: Practice Arena -->
+        <section class="flex-grow flex flex-col gap-6">
+            
+            <!-- Learning Area Screen Card -->
+            <div id="arena-card" class="bg-white rounded-3xl border border-slate-200 shadow-xs flex-grow flex flex-col min-h-[550px] transition-theme">
+                
+                <!-- Practice Arena Header -->
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 rounded-t-3xl transition-theme">
+                    <div class="flex items-center space-x-2.5">
+                        <span id="current-badge" class="bg-indigo-100 text-indigo-700 text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Thử Thách Kép</span>
+                        <span id="question-progress" class="text-xs text-slate-500 font-semibold">Câu 1/15</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="skipQuestion()" class="text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors px-3 py-1.5 rounded-lg hover:bg-slate-100">
+                            Bỏ qua <i class="fa-solid fa-angles-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-100 h-1.5">
+                    <div id="progress-bar-fill" class="bg-indigo-600 h-1.5 transition-all duration-300" style="width: 10%"></div>
+                </div>
+
+                <!-- Interactive Question Box -->
+                <div class="flex-grow flex flex-col justify-center items-center p-6 sm:p-10" id="arena-content">
+                    <!-- Dynamic Content Injected Here -->
+                </div>
+
+                <!-- Quick Help / Hint Box -->
+                <div class="p-4 bg-slate-50 rounded-b-3xl border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-medium transition-theme">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-lightbulb text-amber-500 animate-pulse"></i>
+                        <span id="hint-text">Mẹo: Nhấn nút <i class="fa-solid fa-volume-high text-slate-400"></i> để nghe phát âm tiếng Trung chuẩn!</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500 mr-1.5"></span>Đang học: <strong id="learned-count" class="ml-1 text-slate-700">0</strong></span>
+                        <span class="flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-slate-300 mr-1.5"></span>Tổng số: <strong id="total-count" class="ml-1 text-slate-700">0</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hand-written Stroke or Quick Dictionary / Quick Stats Panel -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+                <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-4 gap-3">
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-spell-check text-indigo-500"></i>
+                            <span>Sổ Tay Học Tập & Tra Cứu HSK 1 (Bài 1 - Bài 5)</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 font-medium">Gồm toàn bộ từ vựng cốt lõi và 50 câu đàm thoại đắt giá rút gọn từ slide</p>
+                    </div>
+                    
+                    <!-- Tabs to switch between Vocab & Sentences handbook -->
+                    <div class="flex bg-slate-100 p-1 rounded-xl text-xs font-semibold text-slate-600 shrink-0">
+                        <button id="tab-btn-vocab" onclick="switchHandbookTab('vocab')" class="px-3.5 py-1.5 rounded-lg transition-all duration-200 bg-white text-slate-800 shadow-2xs">Từ Vựng</button>
+                        <button id="tab-btn-sentences" onclick="switchHandbookTab('sentences')" class="px-3.5 py-1.5 rounded-lg transition-all duration-200">50 Câu Khóa</button>
+                    </div>
+
+                    <!-- Quick Search inside Dictionary -->
+                    <div class="relative w-full lg:w-64 shrink-0">
+                        <input type="text" id="dict-search" oninput="filterHandbook()" placeholder="Tìm chữ Hán, nghĩa, pinyin..." class="w-full text-xs bg-slate-100 border border-transparent focus:border-indigo-500 focus:bg-white rounded-xl py-2.5 pl-9 pr-4 text-slate-700 font-semibold transition-all">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
+                    </div>
+                </div>
+
+                <div class="max-h-[350px] overflow-y-auto border border-slate-100 rounded-xl" id="handbook-content-container">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-5 transition-theme">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400 font-semibold">
+            <p>© 2026 Hệ Thống Luyện Tập HSK 1 Tương Tác Đột Phá • Tích hợp gõ Pinyin câu dài tự động chuyển đổi thông minh.</p>
+        </div>
+    </footer>
+
+    <!-- Embedded Application State and Functions -->
+    <script>
+        // --- COMPREHENSIVE DATA COLLECTION FROM THE PROVIDED SLIDES ---
+        // Collected meticulously from: hihi.pdf, hihihi.pdf, hihihihi.pdf, hihihihihi.pdf, hihihihihihi.pdf
+        const vocabData = [
+            // BÀI 1: 你好
+            { id: 1, lesson: 1, hanzi: "你", pinyin: "nǐ", meaning: "bạn, anh, chị (ngôi thứ 2)", type: "Đại từ" },
+            { id: 2, lesson: 1, hanzi: "好", pinyin: "hǎo", meaning: "tốt, đẹp, khoẻ", type: "Tính từ" },
+            { id: 3, lesson: 1, hanzi: "你好", pinyin: "nǐhǎo", meaning: "xin chào", type: "Cụm từ" },
+            { id: 4, lesson: 1, hanzi: "一", pinyin: "yī", meaning: "số một (1)", type: "Số từ" },
+            { id: 5, lesson: 1, hanzi: "五", pinyin: "wǔ", meaning: "số năm (5)", type: "Số từ" },
+            { id: 6, lesson: 1, hanzi: "八", pinyin: "bā", meaning: "số tám (8)", type: "Số từ" },
+            { id: 7, lesson: 1, hanzi: "大", pinyin: "dà", meaning: "to, lớn", type: "Tính từ" },
+            { id: 8, lesson: 1, hanzi: "不", pinyin: "bù", meaning: "không (phủ định)", type: "Phó từ" },
+            { id: 9, lesson: 1, hanzi: "口", pinyin: "kǒu", meaning: "miệng, lượng từ nhân khẩu", type: "Danh từ" },
+            { id: 10, lesson: 1, hanzi: "白", pinyin: "bái", meaning: "trắng, màu trắng", type: "Tính từ" },
+            { id: 11, lesson: 1, hanzi: "女", pinyin: "nǚ", meaning: "nữ, con gái, phụ nữ", type: "Danh từ" },
+            { id: 12, lesson: 1, hanzi: "马", pinyin: "mǎ", meaning: "con ngựa", type: "Danh từ" },
+
+            // BÀI 2: 汉语不太难
+            { id: 13, lesson: 2, hanzi: "忙", pinyin: "máng", meaning: "bận, bận rộn", type: "Tính từ" },
+            { id: 14, lesson: 2, hanzi: "吗", pinyin: "ma", meaning: "không? (trợ từ hỏi ở cuối câu)", type: "Trợ từ" },
+            { id: 15, lesson: 2, hanzi: "很", pinyin: "hěn", meaning: "rất", type: "Phó từ" },
+            { id: 16, lesson: 2, hanzi: "汉语", pinyin: "Hànyǔ", meaning: "tiếng Hán, tiếng Trung", type: "Danh từ" },
+            { id: 17, lesson: 2, hanzi: "难", pinyin: "nán", meaning: "khó", type: "Tính từ" },
+            { id: 18, lesson: 2, hanzi: "太", pinyin: "tài", meaning: "quá, lắm, hơi (太...了)", type: "Phó từ" },
+            { id: 19, lesson: 2, hanzi: "爸爸", pinyin: "bàba", meaning: "bố, ba", type: "Danh từ" },
+            { id: 20, lesson: 2, hanzi: "妈妈", pinyin: "māma", meaning: "mẹ, má", type: "Danh từ" },
+            { id: 21, lesson: 2, hanzi: "他", pinyin: "tā", meaning: "anh ấy, cậu ấy", type: "Đại từ" },
+            { id: 22, lesson: 2, hanzi: "她", pinyin: "tā", meaning: "cô ấy, chị ấy", type: "Đại từ" },
+            { id: 23, lesson: 2, hanzi: "它", pinyin: "tā", meaning: "nó (chỉ đồ vật, con vật)", type: "Đại từ" },
+            { id: 24, lesson: 2, hanzi: "男", pinyin: "nán", meaning: "nam, giới tính nam", type: "Danh từ/Tính từ" },
+            { id: 25, lesson: 2, hanzi: "哥哥", pinyin: "gēge", meaning: "anh trai", type: "Danh từ" },
+            { id: 26, lesson: 2, hanzi: "弟弟", pinyin: "dìdi", meaning: "em trai", type: "Danh từ" },
+            { id: 27, lesson: 2, hanzi: "妹妹", pinyin: "mèimei", meaning: "em gái", type: "Danh từ" },
+
+            // BÀI 3: 明天见
+            { id: 28, lesson: 3, hanzi: "学", pinyin: "xué", meaning: "học", type: "Động từ" },
+            { id: 29, lesson: 3, hanzi: "英语", pinyin: "Yīngyǔ", meaning: "tiếng Anh", type: "Danh từ" },
+            { id: 30, lesson: 3, hanzi: "德语", pinyin: "Déyǔ", meaning: "tiếng Đức", type: "Danh từ" },
+            { id: 31, lesson: 3, hanzi: "俄语", pinyin: "Éyǔ", meaning: "tiếng Nga", type: "Danh từ" },
+            { id: 32, lesson: 3, hanzi: "法语", pinyin: "Fǎyǔ", meaning: "tiếng Pháp", type: "Danh từ" },
+            { id: 33, lesson: 3, hanzi: "韩国语", pinyin: "Hánguóyǔ", meaning: "tiếng Hàn Quốc", type: "Danh từ" },
+            { id: 34, lesson: 3, hanzi: "日语", pinyin: "Rìyǔ", meaning: "tiếng Nhật", type: "Danh từ" },
+            { id: 35, lesson: 3, hanzi: "西班牙语", pinyin: "Xībānyáyǔ", meaning: "tiếng Tây Ban Nha", type: "Danh từ" },
+            { id: 36, lesson: 3, hanzi: "速度", pinyin: "Yuènányǔ", meaning: "tiếng Việt", type: "Danh từ" },
+            { id: 37, lesson: 3, hanzi: "对", pinyin: "duì", meaning: "đúng, được, đối", type: "Tính từ" },
+            { id: 38, lesson: 3, hanzi: "明天", pinyin: "míngtiān", meaning: "ngày mai", type: "Danh từ" },
+            { id: 39, lesson: 3, hanzi: "见", pinyin: "jiàn", meaning: "gặp, kiến", type: "Động từ" },
+            { id: 40, lesson: 3, hanzi: "去", pinyin: "qù", meaning: "đi, khứ", type: "Động từ" },
+            { id: 41, lesson: 3, hanzi: "邮局", pinyin: "yóujú", meaning: "bưu điện, bưu cục", type: "Danh từ" },
+            { id: 42, lesson: 3, hanzi: "寄", pinyin: "jì", meaning: "gửi, ký", type: "Động từ" },
+            { id: 43, lesson: 3, hanzi: "信", pinyin: "xìn", meaning: "thư, lá thư, tín", type: "Danh từ" },
+            { id: 44, lesson: 3, hanzi: "银行", pinyin: "yínháng", meaning: "ngân hàng", type: "Danh từ" },
+            { id: 45, lesson: 3, hanzi: "取", pinyin: "qǔ", meaning: "rút, thủ", type: "Động từ" },
+            { id: 46, lesson: 3, hanzi: "钱", pinyin: "qián", meaning: "tiền", type: "Danh từ" },
+            { id: 47, lesson: 3, hanzi: "六", pinyin: "liù", meaning: "số sáu (6)", type: "Số từ" },
+            { id: 48, lesson: 3, hanzi: "七", pinyin: "qī", meaning: "số bảy (7)", type: "Số từ" },
+            { id: 49, lesson: 3, hanzi: "九", pinyin: "jiǔ", meaning: "số chín (9)", type: "Số từ" },
+            { id: 50, lesson: 3, hanzi: "北京", pinyin: "Běijīng", meaning: "Bắc Kinh", type: "Danh từ riêng" },
+            { id: 51, lesson: 3, hanzi: "公司", pinyin: "gōngsī", meaning: "công ty", type: "Danh từ" },
+
+            // BÀI 4: 你去哪儿？
+            { id: 52, lesson: 4, hanzi: "今天", pinyin: "jīntiān", meaning: "hôm nay", type: "Danh từ" },
+            { id: 53, lesson: 4, hanzi: "天", pinyin: "tiān", meaning: "ngày, trời", type: "Danh từ" },
+            { id: 54, lesson: 4, hanzi: "昨天", pinyin: "zuótiān", meaning: "hôm qua", type: "Danh từ" },
+            { id: 55, lesson: 4, hanzi: "星期", pinyin: "xīngqī", meaning: "tuần, thứ", type: "Danh từ" },
+            { id: 56, lesson: 4, hanzi: "几", pinyin: "jǐ", meaning: "mấy, vài (dùng hỏi số lượng nhỏ)", type: "Đại từ" },
+            { id: 57, lesson: 4, hanzi: "哪儿", pinyin: "nǎr", meaning: "ở đâu, chỗ nào", type: "Đại từ" },
+            { id: 58, lesson: 4, hanzi: "那儿", pinyin: "nàr", meaning: "ở đó, ở kia", type: "Đại từ" },
+            { id: 59, lesson: 4, hanzi: "我", pinyin: "wǒ", meaning: "tôi, tớ, mình", type: "Đại từ" },
+            { id: 60, lesson: 4, hanzi: "回", pinyin: "huí", meaning: "trở về, quay về", type: "Động từ" },
+            { id: 61, lesson: 4, hanzi: "学校", pinyin: "xuéxiào", meaning: "trường học", type: "Danh từ" },
+            { id: 62, lesson: 4, hanzi: "再见", pinyin: "zàijiàn", meaning: "tạm biệt, hẹn gặp lại", type: "Cụm từ" },
+            { id: 63, lesson: 4, hanzi: "对不起", pinyin: "duìbuqǐ", meaning: "xin lỗi", type: "Cụm từ" },
+            { id: 64, lesson: 4, hanzi: "没关系", pinyin: "méi guānxi", meaning: "không sao, không hề gì", type: "Cụm từ" },
+            { id: 65, lesson: 4, hanzi: "周末", pinyin: "zhōumò", meaning: "cuối tuần", type: "Danh từ" },
+
+            // BÀI 5: 这是王老师
+            { id: 66, lesson: 5, hanzi: "这", pinyin: "zhè", meaning: "đây, này", type: "Đại từ" },
+            { id: 67, lesson: 5, hanzi: "是", pinyin: "shì", meaning: "là, vâng, phải", type: "Động từ" },
+            { id: 68, lesson: 5, hanzi: "老师", pinyin: "lǎoshī", meaning: "thầy cô giáo, giáo viên", type: "Danh từ" },
+            { id: 69, lesson: 5, hanzi: "您", pinyin: "nín", meaning: "ngài, ông, bà (lịch sự)", type: "Đại từ" },
+            { id: 70, lesson: 5, hanzi: "请", pinyin: "qǐng", meaning: "mời, xin mời", type: "Động từ" },
+            { id: 71, lesson: 5, hanzi: "进", pinyin: "jìn", meaning: "vào, tiến vào", type: "Động từ" },
+            { id: 72, lesson: 5, hanzi: "坐", pinyin: "zuò", meaning: "ngồi, tọa", type: "Động từ" },
+            { id: 73, lesson: 5, hanzi: "喝", pinyin: "hē", meaning: "uống", type: "Động từ" },
+            { id: 74, lesson: 5, hanzi: "茶", pinyin: "chá", meaning: "trà, chè", type: "Danh từ" },
+            { id: 75, lesson: 5, hanzi: "工作", pinyin: "gōngzuò", meaning: "công việc, làm việc", type: "Danh từ/Động từ" },
+            { id: 76, lesson: 5, hanzi: "身体", pinyin: "shēntǐ", meaning: "sức khỏe, thân thể", type: "Danh từ" },
+            { id: 77, lesson: 5, hanzi: "谁", pinyin: "shéi", meaning: "ai (who?)", type: "Đại từ" },
+            { id: 78, lesson: 5, hanzi: "什么", pinyin: "shénme", meaning: "cái gì, gì", type: "Đại từ" },
+            { id: 79, lesson: 5, hanzi: "为什么", pinyin: "wèishénme", meaning: "tại sao, vì sao", type: "Đại từ" },
+            { id: 80, lesson: 5, hanzi: "喜欢", pinyin: "xǐhuan", meaning: "thích, yêu thích", type: "Động từ" },
+            { id: 81, lesson: 5, hanzi: "最近", pinyin: "zuìjìn", meaning: "gần đây", type: "Danh từ" },
+            { id: 82, lesson: 5, hanzi: "牛奶", pinyin: "niúnǎi", meaning: "sữa bò", type: "Danh từ" },
+            { id: 83, lesson: 5, hanzi: "咖啡", pinyin: "kāfēi", meaning: "cà phê", type: "Danh từ" },
+            { id: 84, lesson: 5, hanzi: "啤酒", pinyin: "píjiǔ", meaning: "bia (beer)", type: "Danh từ" },
+            { id: 85, lesson: 5, hanzi: "水果汁", pinyin: "shuǐguǒzhī", meaning: "nước hoa quả, nước ép", type: "Danh từ" },
+            { id: 86, lesson: 5, hanzi: "可乐", pinyin: "kělè", meaning: "nước ngọt coca-cola", type: "Danh từ" },
+            { id: 87, lesson: 5, hanzi: "奶茶", pinyin: "nǎichá", meaning: "trà sữa", type: "Danh từ" },
+            { id: 88, lesson: 5, hanzi: "白水", pinyin: "báishuǐ", meaning: "nước lọc, nước trắng", type: "Danh từ" }
+        ];
+
+        // Core long sentences with Vietnamese translations & detailed structural breakdown
+        const sentenceData = [
+            {
+                id: 1,
+                lesson: 5,
+                hanzi: "今天六点半我去银行。",
+                pinyin: "Jīntiān liù diǎn bàn wǒ qù yínháng.",
+                vietnamese: "Hôm nay sáu giờ rưỡi tôi đi ngân hàng.",
+                words: ["Hôm nay", "sáu giờ rưỡi", "tôi", "đi", "ngân hàng."],
+                analysis: [
+                    { word: "今天 (Jīntiān)", role: "Trạng ngữ chỉ thời gian lớn", meaning: "Hôm nay" },
+                    { word: "六点半 (liù diǎn bàn)", role: "Trạng ngữ chỉ thời gian nhỏ", meaning: "6 giờ rưỡi (6:30)" },
+                    { word: "我 (wǒ)", role: "Chủ ngữ", meaning: "Tôi / Tớ" },
+                    { word: "去 (qù)", role: "Động từ chính", meaning: "Đi" },
+                    { word: "银行 (yínháng)", role: "Tân ngữ địa điểm", meaning: "Ngân hàng" }
+                ],
+                grammar: "Quy tắc trật tự thời gian: Thời gian lớn đứng trước thời gian nhỏ (今天 -> 六点半) và luôn đứng đầu câu hoặc ngay trước chủ ngữ."
+            },
+            {
+                id: 2,
+                lesson: 5,
+                hanzi: "这是王老师, 这是我爸爸。",
+                pinyin: "Zhè shì Wáng lǎoshī, zhè shì wǒ bàba.",
+                vietnamese: "Đây là thầy giáo Vương, đây là bố tôi.",
+                words: ["Đây là", "thầy giáo Vương,", "đây là", "bố tôi."],
+                analysis: [
+                    { word: "这 (Zhè)", role: "Đại từ chỉ thị", meaning: "Đây / Này" },
+                    { word: "是 (shì)", role: "Hệ động từ", meaning: "Là" },
+                    { word: "王老师 (Wáng lǎoshī)", role: "Cụm định danh", meaning: "Thầy giáo Vương (Họ Vương)" },
+                    { word: "我爸爸 (wǒ bàba)", role: "Định ngữ + trung tâm ngữ (giản lược)", meaning: "Bố của tôi (bỏ trợ từ 的)" }
+                ],
+                grammar: "Công thức giới thiệu: '这 + 是 + Danh từ'. Khi chỉ quan hệ gia đình thân thuộc, có thể lược bỏ chữ '的' (我爸爸 thay vì 我的爸爸)."
+            },
+            {
+                id: 3,
+                lesson: 5,
+                hanzi: "您好! 请进! 请坐! 请喝茶!",
+                pinyin: "Nín hǎo! Qǐng jìn! Qǐng zuò! Qǐng hē chá!",
+                vietnamese: "Chào ngài! Mời vào! Mời ngồi! Mời uống trà!",
+                words: ["Chào ngài!", "Mời vào!", "Mời ngồi!", "Mời uống trà!"],
+                analysis: [
+                    { word: "您好 (Nín hǎo)", role: "Chào hỏi tôn kính", meaning: "Chào ngài / Chào ông bà" },
+                    { word: "请 (qǐng)", role: "Từ cầu khiến lịch sự", meaning: "Mời / Xin mời" },
+                    { word: "进 / 坐 (jìn / zuò)", role: "Động từ hành động", meaning: "Vào / Ngồi" },
+                    { word: "喝茶 (hē chá)", role: "Động từ + Tân ngữ", meaning: "Uống trà" }
+                ],
+                grammar: "Để biểu thị sự lịch sự và hiếu khách, cấu trúc '请 + Động từ' (Qǐng...) luôn được sử dụng rộng rãi trong giao tiếp."
+            },
+            {
+                id: 4,
+                lesson: 5,
+                hanzi: "好久不见, 你最近工作忙吗?",
+                pinyin: "Hǎojiǔ bújiàn, nǐ zuìjìn gōngzuò máng ma?",
+                vietnamese: "Đã lâu không gặp, gần đây công việc của bạn bận không?",
+                words: ["Đã lâu", "không gặp,", "gần đây", "công việc của bạn", "bận không?"],
+                analysis: [
+                    { word: "好久不见 (Hǎojiǔ bújiàn)", role: "Cụm thành ngữ đàm thoại cố định", meaning: "Đã lâu không gặp" },
+                    { word: "你 (nǐ)", role: "Chủ ngữ lớn", meaning: "Bạn" },
+                    { word: "最近 (zuìjìn)", role: "Trạng ngữ thời gian", meaning: "Gần đây" },
+                    { word: "工作 (gōngzuò)", role: "Chủ ngữ nhỏ", meaning: "Công việc" },
+                    { word: "忙吗 (máng ma)", role: "Tính từ vị ngữ + Trợ từ nghi vấn", meaning: "Bận không?" }
+                ],
+                grammar: "Đây là câu chủ vị kép: '最近工作忙吗' đóng vai trò vị ngữ giải thích cho chủ ngữ lớn 'nǐ'."
+            },
+            {
+                id: 5,
+                lesson: 3,
+                hanzi: "你去邮局寄信吗?",
+                pinyin: "Nǐ qù yóujú jì xìn ma?",
+                vietnamese: "Bạn đi bưu điện gửi thư phải không?",
+                words: ["Bạn", "đi", "bưu điện", "gửi thư", "phải không?"],
+                analysis: [
+                    { word: "你 (Nǐ)", role: "Chủ ngữ", meaning: "Bạn / Cậu" },
+                    { word: "去 (qù)", role: "Động từ di chuyển 1", meaning: "Đi" },
+                    { word: "邮局 (yóujú)", role: "Địa điểm 1", meaning: "Bưu điện" },
+                    { word: "寄 (jì)", role: "Động từ mục đích 2", meaning: "Gửi" },
+                    { word: "信 (xìn)", role: "Tân ngữ 2", meaning: "Thư" }
+                ],
+                grammar: "Cấu trúc liên động: 'Chủ ngữ + 去 + Địa điểm + Động từ + Tân ngữ'. Diễn tả việc di chuyển tới một nơi để thực hiện hành động."
+            },
+            {
+                id: 6,
+                lesson: 4,
+                hanzi: "不去, 我回学校。",
+                pinyin: "Bú qù, wǒ huí xuéxiào.",
+                vietnamese: "Không đi, tôi quay lại trường học.",
+                words: ["Không đi,", "tôi", "quay lại", "trường học."],
+                analysis: [
+                    { word: "不去 (Bú qù)", role: "Phủ định giản lược", meaning: "Không đi" },
+                    { word: "我 (wǒ)", role: "Chủ ngữ", meaning: "Tôi / Tớ" },
+                    { word: "回 (huí)", role: "Động từ di chuyển ngược", meaning: "Về / Trở về" },
+                    { word: "学校 (xuéxiào)", role: "Tân ngữ nơi chốn", meaning: "Trường học" }
+                ],
+                grammar: "Quy tắc biến điệu của phó từ phủ định '不' (bù): Đọc thành thanh 2 'bú' khi đứng trước một âm tiết thanh 4 như '去' (qù)."
+            },
+            {
+                id: 7,
+                lesson: 4,
+                hanzi: "昨天星期天, 我去哥哥公司。",
+                pinyin: "Zuótiān xīngqītiān, wǒ qù gēge gōngsī.",
+                vietnamese: "Hôm qua chủ nhật, tôi đi công ty anh trai.",
+                words: ["Hôm qua", "chủ nhật,", "tôi", "đi", "công ty anh trai."],
+                analysis: [
+                    { word: "昨天 (Zuótiān)", role: "Thời gian", meaning: "Hôm qua" },
+                    { word: "星期天 (xīngqītiān)", role: "Thứ trong tuần", meaning: "Chủ nhật" },
+                    { word: "我 (wǒ)", role: "Chủ ngữ", meaning: "Tôi" },
+                    { word: "去 (qù)", role: "Động từ", meaning: "Đi" },
+                    { word: "哥哥公司 (gēge gōngsī)", role: "Cụm định ngữ", meaning: "Công ty của anh trai" }
+                ],
+                grammar: "Không cần dùng chữ '的' trong cụm '哥哥(的)公司' khi mối quan hệ sở hữu được hiểu ngầm và thân mật."
+            },
+            {
+                id: 8,
+                lesson: 2,
+                hanzi: "汉语不太难, 我很喜欢学汉语。",
+                pinyin: "Hànyǔ bú tài nán, wǒ hěn xǐhuan xué Hànyǔ.",
+                vietnamese: "Tiếng Trung không khó lắm, tôi rất thích học tiếng Trung.",
+                words: ["Tiếng Trung", "không khó lắm,", "tôi", "rất thích", "học tiếng Trung."],
+                analysis: [
+                    { word: "汉语 (Hànyǔ)", role: "Chủ ngữ 1", meaning: "Tiếng Trung / Tiếng Hán" },
+                    { word: "不太难 (bú tài nán)", role: "Vị ngữ tính từ (Phủ định)", meaning: "Không khó lắm" },
+                    { word: "我很喜欢 (wǒ hěn xǐhuan)", role: "Chủ ngữ 2 + Phó từ + Động từ tâm lý", meaning: "Tôi rất thích" },
+                    { word: "学汉语 (xué Hànyǔ)", role: "Động từ hành động + Tân ngữ", meaning: "Học tiếng Trung" }
+                ],
+                grammar: "Cấu trúc '不太 + Tính từ' biểu thị mức độ không quá cao. Động từ tâm lý '喜欢' đứng trước động từ thường '学'."
+            },
+            {
+                id: 9,
+                lesson: 5,
+                hanzi: "他是谁? 他是我的汉语老师。",
+                pinyin: "Tā shì shéi? Tā shì wǒ de Hànyǔ lǎoshī.",
+                vietnamese: "Anh ấy là ai? Anh ấy là giáo viên tiếng Trung của tôi.",
+                words: ["Anh ấy", "là ai?", "Anh ấy là", "giáo viên tiếng Trung", "của tôi."],
+                analysis: [
+                    { word: "他 (Tā)", role: "Chủ ngữ", meaning: "Anh ấy" },
+                    { word: "是谁 (shì shéi)", role: "Hệ động từ + Đại từ nghi vấn", meaning: "Là ai" },
+                    { word: "我的 (wǒ de)", role: "Định ngữ sở hữu", meaning: "Của tôi" },
+                    { word: "汉语老师 (Hànyǔ lǎoshī)", role: "Trung tâm ngữ danh từ", meaning: "Giáo viên tiếng Trung" }
+                ],
+                grammar: "Đại từ nghi vấn '谁' (ai) giữ nguyên vị trí ngữ pháp tương ứng giống như từ trả lời, không cần đảo lên đầu câu."
+            },
+            {
+                id: 10,
+                lesson: 5,
+                hanzi: "妹妹喜欢喝牛奶, 不喜欢喝咖啡。",
+                pinyin: "Mèimei xǐhuan hē niúnǎi, bù xǐhuan hē kāfēi.",
+                vietnamese: "Em gái thích uống sữa bò, không thích uống cà phê.",
+                words: ["Em gái", "thích uống sữa bò,", "không thích", "uống cà phê."],
+                analysis: [
+                    { word: "妹妹 (Mèimei)", role: "Chủ ngữ", meaning: "Em gái" },
+                    { word: "喜欢喝牛奶 (xǐhuan hē niúnǎi)", role: "Thích + Động từ + Tân ngữ sữa", meaning: "Thích uống sữa" },
+                    { word: "不喜欢 (bù xǐhuan)", role: "Cụm phủ định động từ tâm lý", meaning: "Không thích" },
+                    { word: "喝咖啡 (hē kāfēi)", role: "Động từ + Tân ngữ cà phê", meaning: "Uống cà phê" }
+                ],
+                grammar: "Cấu trúc đối chiếu phủ định: '喜欢... 不喜欢...'. Các từ chỉ đồ uống và hoạt động đi kèm tạo thành thói quen hàng ngày."
+            },
+            {
+                id: 11,
+                lesson: 4,
+                hanzi: "今天星期几? 今天星期五。",
+                pinyin: "Jīntiān xīngqījǐ? Jīntiān xīngqīwǔ.",
+                vietnamese: "Hôm nay thứ mấy? Hôm nay thứ sáu.",
+                words: ["Hôm nay", "thứ mấy?", "Hôm nay", "thứ sáu."],
+                analysis: [
+                    { word: "今天 (Jīntiān)", role: "Chủ ngữ thời gian", meaning: "Hôm nay" },
+                    { word: "星期几 (xīngqījǐ)", role: "Từ nghi vấn hỏi thứ trong tuần", meaning: "Thứ mấy / Thứ mấy trong tuần" },
+                    { word: "星期五 (xīngqīwǔ)", role: "Danh từ chỉ thứ tự ngày", meaning: "Thứ sáu" }
+                ],
+                grammar: "Trong câu hỏi thời gian, danh từ chỉ thứ/ngày có thể làm vị ngữ trực tiếp (câu vị ngữ danh từ) mà không cần dùng chữ '是'."
+            },
+            {
+                id: 12,
+                lesson: 4,
+                hanzi: "你明天去哪儿? 我回学校。",
+                pinyin: "Nǐ míngtiān qù nǎr? Wǒ huí xuéxiào.",
+                vietnamese: "Ngày mai bạn đi đâu? Tôi về trường học.",
+                words: ["Ngày mai", "bạn đi đâu?", "Tôi", "về trường học."],
+                analysis: [
+                    { word: "你 (Nǐ)", role: "Chủ ngữ", meaning: "Bạn / Cậu" },
+                    { word: "明天 (míngtiān)", role: "Trạng ngữ chỉ thời gian", meaning: "Ngày mai" },
+                    { word: "去哪儿 (qù nǎr)", role: "Động từ + Đại từ nghi vấn địa điểm", meaning: "Đi đâu" },
+                    { word: "回学校 (huí xuéxiào)", role: "Động từ + Tân ngữ chỉ đích đến", meaning: "Về trường học" }
+                ],
+                grammar: "Từ hỏi địa điểm '哪儿' (ở đâu/đâu) giữ vị trí tân ngữ sau động từ di chuyển '去'."
+            },
+            {
+                id: 13,
+                lesson: 3,
+                hanzi: "哥哥明天去北京学日语。",
+                pinyin: "Gēge míngtiān qù Běijīng xué Rìyǔ.",
+                vietnamese: "Anh trai ngày mai đi Bắc Kinh học tiếng Nhật.",
+                words: ["Anh trai", "ngày mai", "đi Bắc Kinh", "học tiếng Nhật."],
+                analysis: [
+                    { word: "哥哥 (Gēge)", role: "Chủ ngữ", meaning: "Anh trai" },
+                    { word: "明天 (míngtiān)", role: "Trạng ngữ chỉ thời gian", meaning: "Ngày mai" },
+                    { word: "去北京 (qù Běijīng)", role: "Động từ 1 + Địa điểm", meaning: "Đi Bắc Kinh" },
+                    { word: "学日语 (xué Rìyǔ)", role: "Động từ 2 + Tân ngữ ngôn ngữ", meaning: "Học tiếng Nhật" }
+                ],
+                grammar: "Đây là câu liên động chỉ mục đích: Đi tới Bắc Kinh (去北京) để thực hiện một hành động khác là học tiếng Nhật (学日语)."
+            },
+            {
+                id: 14,
+                lesson: 5,
+                hanzi: "爸爸最近身体好吗? 他身体很好。",
+                pinyin: "Bàba zuìjìn shēntǐ hǎo ma? Tā shēntǐ hěn hǎo.",
+                vietnamese: "Bố gần đây sức khỏe tốt không? Bố sức khỏe rất tốt.",
+                words: ["Bố", "gần đây", "sức khỏe tốt không?", "Bố", "sức khỏe rất tốt."],
+                analysis: [
+                    { word: "爸爸 (Bàba)", role: "Chủ ngữ lớn", meaning: "Bố / Ba" },
+                    { word: "最近 (zuìjìn)", role: "Trạng ngữ chỉ thời gian", meaning: "Gần đây" },
+                    { word: "身体好吗 (shēntǐ hǎo ma)", role: "Cụm nghi vấn sức khỏe", meaning: "Sức khỏe tốt không?" },
+                    { word: "很好 (hěn hǎo)", role: "Phó từ mức độ + Tính từ vị ngữ", meaning: "Rất tốt" }
+                ],
+                grammar: "Cấu trúc chủ vị làm vị ngữ: '身体 + 好/不好' dùng để làm rõ tình trạng sức khỏe của chủ ngữ lớn."
+            },
+            {
+                id: 15,
+                lesson: 5,
+                hanzi: "对不起, 今天我很忙, 不喝咖啡。",
+                pinyin: "Duìbuqǐ, jīntiān wǒ hěn máng, bù hē kāfēi.",
+                vietnamese: "Xin lỗi, hôm nay tôi rất bận, không uống cà phê.",
+                words: ["Xin lỗi,", "hôm nay", "tôi rất bận,", "không uống cà phê."],
+                analysis: [
+                    { word: "对不起 (Duìbuqǐ)", role: "Cụm từ xin lỗi lịch sự", meaning: "Xin lỗi" },
+                    { word: "今天 (jīntiān)", role: "Trạng ngữ chỉ thời gian", meaning: "Hôm nay" },
+                    { word: "我很忙 (wǒ hěn máng)", role: "Chủ ngữ + Vị ngữ tính từ bận rộn", meaning: "Tôi rất bận" },
+                    { word: "不喝咖啡 (bù hē kāfēi)", role: "Phủ định + Động từ + Tân ngữ", meaning: "Không uống cà phê" }
+                ],
+                grammar: "Việc sử dụng '对不起' giúp bắt đầu một lý do lịch sự. '不' đứng trước động từ '喝' để phủ định hành động."
+            },
+            {
+                id: 16,
+                lesson: 5,
+                hanzi: "没关系, chúng tôi mốc thời gian gặp.",
+                pinyin: "Méi guānxi, wǒmen míngtiān qù hē chá.",
+                vietnamese: "Không sao, ngày mai chúng ta đi uống trà.",
+                words: ["Không sao,", "ngày mai", "chúng ta", "đi uống trà."],
+                analysis: [
+                    { word: "没关系 (Méi guānxi)", role: "Đáp từ lịch sự xã giao", meaning: "Không sao / Không hề gì" },
+                    { word: "我们 (wǒmen)", role: "Chủ ngữ số nhiều", meaning: "Chúng ta / Chúng tôi" },
+                    { word: "明天 (míngtiān)", role: "Thời gian", meaning: "Ngày mai" },
+                    { word: "去喝茶 (qù hē chá)", role: "Động từ di chuyển + Hành động", meaning: "Đi uống trà" }
+                ],
+                grammar: "'没关系' là câu đáp lại chuẩn khi người khác nói '对不起'. Chủ ngữ số nhiều thêm đuôi '们'."
+            },
+            {
+                id: 17,
+                lesson: 5,
+                hanzi: "为什么你喜欢学西班牙语?",
+                pinyin: "Wèishénme nǐ xǐhuan xué Xībānyáyǔ?",
+                vietnamese: "Tại sao bạn thích học tiếng Tây Ban Nha?",
+                words: ["Tại sao", "bạn", "thích học", "tiếng Tây Ban Nha?"],
+                analysis: [
+                    { word: "为什么 (Wèishénme)", role: "Đại từ nghi vấn chỉ nguyên nhân", meaning: "Tại sao / Vì sao" },
+                    { word: "你 (nǐ)", role: "Chủ ngữ", meaning: "Bạn" },
+                    { word: "喜欢学 (xǐhuan xué)", role: "Động từ tâm lý + Động từ chính", meaning: "Thích học" },
+                    { word: "西班牙语 (Xībānyáyǔ)", role: "Tân ngữ ngôn ngữ", meaning: "Tiếng Tây Ban Nha" }
+                ],
+                grammar: "'为什么' có thể đặt ở trước hoặc sau chủ ngữ để hỏi về nguyên nhân lý do của hành động."
+            },
+            {
+                id: 18,
+                lesson: 1,
+                hanzi: "这是谁的马? 这是一匹大白马。",
+                pinyin: "Zhè_shì_shéi_de_mǎ?_Zhè_shì_yì_pǐ_dà_bái_mǎ.",
+                vietnamese: "Đây là ngựa của ai? Đây là một con ngựa trắng lớn.",
+                words: ["Đây là", "ngựa của ai?", "Đây là", "một con", "ngựa trắng lớn."],
+                analysis: [
+                    { word: "谁的马 (shéi de mǎ)", role: "Định ngữ nghi vấn + Danh từ trung tâm", meaning: "Ngựa của ai" },
+                    { word: "一匹 (yì pǐ)", role: "Số từ + Lượng từ chỉ loài ngựa", meaning: "Một con" },
+                    { word: "大白马 (dà bái mǎ)", role: "Định ngữ tính từ ghép + Danh từ", meaning: "Ngựa trắng lớn" }
+                ],
+                grammar: "Quy tắc biến điệu của '一' (yī): Đọc thành thanh 4 'yì' khi đứng trước âm mang thanh 3 như '匹' (pǐ)."
+            },
+            {
+                id: 19,
+                lesson: 3,
+                hanzi: "昨天九点半, 我和妈妈去银行取钱。",
+                pinyin: "Zuótiān jiǔ diǎn bàn, wǒ hé māma qù yínháng qǔ qián.",
+                vietnamese: "Hôm qua chín giờ rưỡi, tôi và mẹ đi ngân hàng rút tiền.",
+                words: ["Hôm qua", "chín giờ rưỡi,", "tôi và mẹ", "đi ngân hàng", "rút tiền."],
+                analysis: [
+                    { word: "昨天九点半 (Zuótiān jiǔ diǎn bàn)", role: "Trạng ngữ chỉ thời gian phức hợp", meaning: "9:30 ngày hôm qua" },
+                    { word: "我和妈妈 (wǒ hé māma)", role: "Chủ ngữ liên kết bằng từ liên từ 和", meaning: "Tôi và mẹ" },
+                    { word: "去银行 (qù yínháng)", role: "Động từ 1 + Địa điểm", meaning: "Đi ngân hàng" },
+                    { word: "取钱 (qǔ qián)", role: "Động từ 2 + Tân ngữ chỉ hành động", meaning: "Rút tiền" }
+                ],
+                grammar: "Liên từ '和' dùng kết nối giữa hai danh từ hoặc đại từ tương đương, tuyệt đối không dùng để nối hai phân câu."
+            },
+            {
+                id: 20,
+                lesson: 5,
+                hanzi: "弟弟不喝啤酒, 他喜欢喝可乐。",
+                pinyin: "Dìdi bù hē píjiǔ, tā xǐhuan hē kělè.",
+                vietnamese: "Em trai không uống bia, nó thích uống Coca.",
+                words: ["Em trai", "không uống bia,", "nó", "thích uống", "Coca."],
+                analysis: [
+                    { word: "弟弟 (Dìdi)", role: "Chủ ngữ", meaning: "Em trai" },
+                    { word: "不喝啤酒 (bù hē píjiǔ)", role: "Cụm phủ định hành động uống bia", meaning: "Không uống bia" },
+                    { word: "他 (tā)", role: "Đại từ chỉ nam giới ngôi thứ 3", meaning: "Nó / Cậu ấy" },
+                    { word: "喜欢喝可乐 (xǐhuan hē kělè)", role: "Động từ tâm lý + Động từ + Tân ngữ", meaning: "Thích uống Coca" }
+                ],
+                grammar: "Đối sánh từ vựng chỉ đồ uống: '啤酒' (bia) của người lớn và '可乐' (nước ngọt Coca) của trẻ em."
+            },
+            {
+                id: 21,
+                lesson: 4,
+                hanzi: "星期六, 老师去邮局寄信。",
+                pinyin: "Xīngqīliù, lǎoshī qù yóujú jì xìn.",
+                vietnamese: "Thứ bảy, thầy giáo đi bưu điện gửi thư.",
+                words: ["Thứ bảy,", "thầy giáo", "đi bưu điện", "gửi thư."],
+                analysis: [
+                    { word: "星期六 (Xīngqīliù)", role: "Trạng ngữ thời gian thứ trong tuần", meaning: "Thứ bảy" },
+                    { word: "老师 (lǎoshī)", role: "Chủ ngữ chỉ nghề nghiệp", meaning: "Thầy giáo / Giáo viên" },
+                    { word: "去邮局 (qù yóujú)", role: "Động từ 1 + Địa điểm bưu điện", meaning: "Đi bưu điện" },
+                    { word: "寄信 (jì xìn)", role: "Động từ 2 + Tân ngữ gửi thư", meaning: "Gửi thư" }
+                ],
+                grammar: "Đặt thời gian lên đầu câu trước chủ ngữ để làm nổi bật mốc thời gian diễn ra hoạt động của thầy giáo."
+            },
+            {
+                id: 22,
+                lesson: 4,
+                hanzi: "那儿是谁的学校? 那是我的学校。",
+                pinyin: "Nàr... Nà shì wǒ de xuéxiào.",
+                vietnamese: "Ở kia là trường học của ai? Đó là trường học của tôi.",
+                words: ["Ở kia", "là trường học của ai?", "Đó là", "trường học của tôi."],
+                analysis: [
+                    { word: "那儿 (Nàr)", role: "Đại từ chỉ thị nơi chốn xa", meaning: "Ở kia / Ở đó" },
+                    { word: "谁的学校 (shéi de xuéxiào)", role: "Sở hữu nghi vấn", meaning: "Trường học của ai" },
+                    { word: "那 (nà)", role: "Đại từ chỉ thị vật ở xa", meaning: "Đó / Kia" },
+                    { word: "我的学校 (wǒ de xuéxiào)", role: "Cấu trúc sở hữu xác định", meaning: "Trường của tôi" }
+                ],
+                grammar: "Phân biệt '那儿' (nàr - nơi đó, chỉ địa điểm) và '那' (nà - cái kia, đại từ chỉ thị đồ vật)."
+            },
+            {
+                id: 23,
+                lesson: 5,
+                hanzi: "今天晚上, 我 và 哥哥 qù hē nǎichá.",
+                pinyin: "Jīntiān wǎnshang, wǒ hé gēge qù hē nǎichá.",
+                vietnamese: "Tối hôm nay, tôi và anh trai đi uống trà sữa.",
+                words: ["Tối hôm nay,", "tôi và anh trai", "đi uống", "trà sữa."],
+                analysis: [
+                    { word: "今天晚上 (Jīntiān wǎnshang)", role: "Trạng ngữ thời gian chi tiết", meaning: "Tối hôm nay" },
+                    { word: "我和哥哥 (wǒ hé gēge)", role: "Chủ ngữ liên kết", meaning: "Tôi và anh trai" },
+                    { word: "去 (qù)", role: "Động từ định hướng", meaning: "Đi" },
+                    { word: "喝奶茶 (hē nǎichá)", role: "Động từ chính + Tân ngữ đồ uống", meaning: "Uống trà sữa" }
+                ],
+                grammar: "Động từ '去' đứng trước cụm động từ '喝奶茶' biểu thị hướng di chuyển rời khỏi vị trí hiện tại để đi uống."
+            },
+            {
+                id: 24,
+                lesson: 5,
+                hanzi: "为什么今天你不去北京工作?",
+                pinyin: "Wèishénme jīntiān nǐ bú qù Běijīng gōngzuò?",
+                vietnamese: "Tại sao hôm nay bạn không đi Bắc Kinh làm việc?",
+                words: ["Tại sao", "Hôm nay", "bạn không đi", "Bắc Kinh", "làm việc?"],
+                analysis: [
+                    { word: "为什么 (Wèishénme)", role: "Hỏi lý do đầu câu", meaning: "Tại sao" },
+                    { word: "今天 (jīntiān)", role: "Trạng ngữ thời gian hôm nay", meaning: "Hôm nay" },
+                    { word: "你不去 (nǐ bú qù)", role: "Chủ ngữ + Phủ định hành động đi", meaning: "Bạn không đi" },
+                    { word: "北京工作 (Běijīng gōngzuò)", role: "Địa điểm + Hoạt động công tác", meaning: "Bắc Kinh làm việc" }
+                ],
+                grammar: "Khi phủ định một động từ trong chuỗi liên động, phó từ phủ định '不' phải đặt trước động từ thứ nhất (不去...)."
+            },
+            {
+                id: 25,
+                lesson: 5,
+                hanzi: "您最近忙吗? 最近我不太忙。",
+                pinyin: "Nín zuìjìn máng ma? Zuìjìn wǒ bú tài máng.",
+                vietnamese: "Ngài gần đây bận không? Gần đây tôi không bận lắm.",
+                words: ["Ngài", "gần đây bận không?", "Gần đây", "tôi không bận lắm."],
+                analysis: [
+                    { word: "您 (Nín)", role: "Chủ ngữ ngôi thứ 2 trang trọng", meaning: "Ngài / Quý khách" },
+                    { word: "最近 (zuìjìn)", role: "Trạng ngữ thời gian", meaning: "Gần đây" },
+                    { word: "我 (wǒ)", role: "Chủ ngữ trả lời", meaning: "Tôi" },
+                    { word: "不太忙 (bú tài máng)", role: "Phủ định giảm nhẹ vị ngữ", meaning: "Không bận lắm" }
+                ],
+                grammar: "Sử dụng '您' thay cho 'ni' để biểu thị sự lịch thiệp tối đa với khách hàng hoặc giáo viên lớn tuổi."
+            },
+            {
+                id: 26,
+                lesson: 5,
+                hanzi: "老师喜欢喝茶, 不喜欢喝啤酒。",
+                pinyin: "Lǎoshī xǐhuan hē chá, bù xǐhuan hē píjiǔ.",
+                vietnamese: "Thầy giáo thích uống trà, không thích uống bia.",
+                words: ["Thầy giáo", "thích uống trà,", "không thích", "uống bia."],
+                analysis: [
+                    { word: "老师 (Lǎoshī)", role: "Chủ ngữ", meaning: "Thầy giáo / Cô giáo" },
+                    { word: "喜欢 (xǐhuan)", role: "Động từ tâm lý thích", meaning: "Thích" },
+                    { word: "喝茶 (hē chá)", role: "Hành động uống trà", meaning: "Uống trà" },
+                    { word: "喝啤酒 (hē píjiǔ)", role: "Hành động uống bia", meaning: "Uống bia" }
+                ],
+                grammar: "Trà '茶' và bia '啤酒' là hai đồ uống tiêu biểu xuất hiện trong đàm thoại Bài 5 của HSK 1."
+            },
+            {
+                id: 27,
+                lesson: 4,
+                hanzi: "昨天你为什么不回学校?",
+                pinyin: "Zuótiān nǐ wèishénme bù huí xuéxiào?",
+                vietnamese: "Hôm qua tại sao bạn không về trường học?",
+                words: ["Hôm qua", "tại sao", "bạn không về", "trường học?"],
+                analysis: [
+                    { word: "昨天 (Zuótiān)", role: "Mốc thời gian", meaning: "Hôm qua" },
+                    { word: "你 (nǐ)", role: "Chủ ngữ", meaning: "Bạn" },
+                    { word: "为什么 (wèishénme)", role: "Đại từ hỏi nguyên nhân", meaning: "Tại sao" },
+                    { word: "不回 (bù huí)", role: "Phủ định động từ di chuyển", meaning: "Không về" },
+                    { word: "学校 (xuéxiào)", role: "Tân ngữ trường học", meaning: "Trường học" }
+                ],
+                grammar: "Đặt phó từ phủ định '不' ngay trước động từ di chuyển ngược '回' để thể hiện việc từ chối hoặc không thực hiện."
+            },
+            {
+                id: 28,
+                lesson: 5,
+                hanzi: "妹妹最近工作太忙, 身体不太好。",
+                pinyin: "Mèimei zuìjìn gōngzuò tài máng, shēntǐ bú tài hǎo.",
+                vietnamese: "Em gái gần đây công việc quá bận, sức khỏe không tốt lắm.",
+                words: ["Em gái", "gần đây công việc quá bận,", "sức khỏe", "không tốt lắm."],
+                analysis: [
+                    { word: "妹妹 (Mèimei)", role: "Chủ ngữ chính", meaning: "Em gái" },
+                    { word: "工作太忙 (gōngzuò tài máng)", role: "Chủ ngữ phụ + Vị ngữ mức độ", meaning: "Công việc bận quá" },
+                    { word: "身体 (shēntǐ)", role: "Chủ ngữ phụ thứ hai", meaning: "Sức khỏe" },
+                    { word: "不太好 (bú tài hǎo)", role: "Vị ngữ trạng thái", meaning: "Không quá tốt" }
+                ],
+                grammar: "Cấu trúc '太 + Tính từ + 了' có thể lược giản chữ '了' trong văn đàm thoại ngắn gọn khi nói về công việc."
+            },
+            {
+                id: 29,
+                lesson: 3,
+                hanzi: "谁学德语? 我哥哥和弟弟学德语。",
+                pinyin: "Shéi xué Déyǔ? Wǒ gēge hé dìdi xué Déyǔ.",
+                vietnamese: "Ai học tiếng Đức? Anh trai và em trai tôi học tiếng Đức.",
+                words: ["Ai", "học tiếng Đức?", "Anh trai và em trai tôi", "học tiếng Đức."],
+                analysis: [
+                    { word: "谁 (Shéi)", role: "Đại từ hỏi chủ ngữ", meaning: "Ai" },
+                    { word: "学德语 (xué Déyǔ)", role: "Động từ + Tân ngữ ngôn ngữ", meaning: "Học tiếng Đức" },
+                    { word: "我哥哥 và 弟弟 (wǒ gēge hé dìdi)", role: "Cụm chủ ngữ phối hợp", meaning: "Anh trai và em trai tôi" }
+                ],
+                grammar: "Tiếng Đức '德语' (Déyǔ) là một trong những ngoại ngữ chính được liệt kê trong giáo án HSK 1 Bài 3."
+            },
+            {
+                id: 30,
+                lesson: 5,
+                hanzi: "这是什么茶? 这是中国绿茶。",
+                pinyin: "Zhè shì shénme chá? Zhè shì Zhōngguó lǜchá.",
+                vietnamese: "Đây là trà gì? Đây là trà xanh Trung Quốc.",
+                words: ["Đây là", "trà gì?", "Đây là", "trà xanh Trung Quốc."],
+                analysis: [
+                    { word: "这是 (Zhè shì)", role: "Cấu trúc định danh chỉ gần", meaning: "Đây là" },
+                    { word: "什么茶 (shénme chá)", role: "Từ hỏi loại hình + Danh từ", meaning: "Trà gì" },
+                    { word: "中国 (Zhōngguó)", role: "Định ngữ quốc gia", meaning: "Trung Quốc" },
+                    { word: "绿茶 (lǜchá)", role: "Tân ngữ loại trà", meaning: "Trà xanh" }
+                ],
+                grammar: "Đại từ nghi vấn 'gi' đặt trước danh từ '茶' đóng vai trò định ngữ để hỏi rõ chủng loại vật thể."
+            },
+            {
+                id: 31,
+                lesson: 4,
+                hanzi: "昨天是星期四, 我们去公司工作。",
+                pinyin: "Zuótiān shì xīngqīsì, wǒmen qù gōngsī gōngzuò.",
+                vietnamese: "Hôm qua là thứ năm, chúng tôi đi công ty làm việc.",
+                words: ["Hôm qua là", "thứ năm,", "chúng tôi", "đi công ty", "làm việc."],
+                analysis: [
+                    { word: "昨天 (Zuótiān)", role: "Trạng ngữ chỉ thời gian hôm qua", meaning: "Hôm qua" },
+                    { word: "星期四 (xīngqīsì)", role: "Thứ năm", meaning: "Thứ năm" },
+                    { word: "去公司 (qù gōngsī)", role: "Động từ di chuyển 1 + Địa điểm", meaning: "Đi công ty" },
+                    { word: "工作 (gōngzuò)", role: "Động từ 2 chỉ hành động mục đích", meaning: "Làm việc" }
+                ],
+                grammar: "Câu liên động: di chuyển đến một đơn vị kinh tế '公司' (công ty) để thực hiện hoạt động chuyên môn '工作' (làm việc)."
+            },
+            {
+                id: 32,
+                lesson: 5,
+                hanzi: "爸爸妈妈今天去北京见王老师。",
+                pinyin: "Bàba māma jīntiān qù Běijīng jiàn Wáng lǎoshī.",
+                vietnamese: "Bố mẹ hôm nay đi Bắc Kinh gặp thầy giáo Vương.",
+                words: ["Bố mẹ", "hôm nay", "đi Bắc Kinh", "gặp thầy giáo Vương."],
+                analysis: [
+                    { word: "爸爸妈妈 (Bàba māma)", role: "Chủ ngữ ghép đôi", meaning: "Bố mẹ" },
+                    { word: "今天 (jīntiān)", role: "Trạng ngữ thời gian hôm nay", meaning: "Hôm nay" },
+                    { word: "去北京 (qù Běijīng)", role: "Động từ di chuyển + Nơi chốn", meaning: "Đi Bắc Kinh" },
+                    { word: "见王老师 (jiàn Wáng lǎoshī)", role: "Động từ 2 + Đối tượng gặp mặt", meaning: "Gặp thầy Vương" }
+                ],
+                grammar: "Tân ngữ chỉ người '王老师' đứng sau động từ tri giác '见' biểu thị mục đích của cả chuyến đi."
+            },
+            {
+                id: 33,
+                lesson: 5,
+                hanzi: "请喝热水, 不要喝冰水。",
+                pinyin: "Qǐng hē rèshuǐ, bú yào hē bīngshuǐ.",
+                vietnamese: "Mời uống nước ấm, đừng uống nước đá.",
+                words: ["Mời uống", "nước ấm,", "đừng uống", "nước đá."],
+                analysis: [
+                    { word: "请喝 (Qǐng hē)", role: "Cầu khiến lịch sự mời uống", meaning: "Mời uống" },
+                    { word: "热水 (rèshuǐ)", role: "Tân ngữ nước nóng ấm", meaning: "Nước ấm / Nước nóng" },
+                    { word: "不要 (bú yào)", role: "Cấm đoán phủ định nhẹ nhàng", meaning: "Đừng / Không nên" },
+                    { word: "喝冰水 (hē bīngshuǐ)", role: "Động từ + Nước đá", meaning: "Uống nước đá" }
+                ],
+                grammar: "Cấu trúc khuyên ngăn: '不要 + Động từ'. Chữ '不要' đóng vai trò tương tự như phó từ cấm đoán lịch thiệp."
+            },
+            {
+                id: 34,
+                lesson: 5,
+                hanzi: "弟弟最近喜欢喝什么? 他喜欢喝水果汁。",
+                pinyin: "Dìdi zuìjìn xǐhuan hē shénme? Tā xǐhuan hē shuǐguǒzhī.",
+                vietnamese: "Em trai gần đây thích uống gì? Nó thích uống nước ép trái cây.",
+                words: ["Em trai", "gần đây thích uống gì?", "Nó thích uống", "nước ép trái cây."],
+                analysis: [
+                    { word: "最近 (zuìjìn)", role: "Thời gian gần đây", meaning: "Gần đây" },
+                    { word: "什么 (shénme)", role: "Đại từ hỏi đồ vật/đồ uống", meaning: "Cái gì / Gì" },
+                    { word: "水果汁 (shuǐguǒzhī)", role: "Tân ngữ chỉ nước ép hoa quả", meaning: "Nước ép trái cây" }
+                ],
+                grammar: "'水果汁' (shuǐguǒzhī) là danh từ ghép từ '水果' (hoa quả) và '汁' (nước cốt, nước ép)."
+            },
+            {
+                id: 35,
+                lesson: 3,
+                hanzi: "昨天我去银行, 今天我去学校。",
+                pinyin: "Zuótiān wǒ qù yínháng, jīntiān wǒ qù xuéxiào.",
+                vietnamese: "Hôm qua tôi đi ngân hàng, hôm nay tôi đi trường học.",
+                words: ["Hôm qua", "tôi đi ngân hàng,", "hôm nay", "tôi đi trường học."],
+                analysis: [
+                    { word: "昨天 (Zuótiān)", role: "Trạng ngữ thời gian quá khứ", meaning: "Hôm qua" },
+                    { word: "去银行 (qù yínháng)", role: "Đi ngân hàng", meaning: "Đi ngân hàng" },
+                    { word: "今天 (jīntiān)", role: "Trạng ngữ thời gian hiện tại", meaning: "Hôm nay" },
+                    { word: "去学校 (qù xuéxiào)", role: "Đi học / Đi đến trường", meaning: "Đi trường học" }
+                ],
+                grammar: "Phép đối lập trạng ngữ thời gian đầu câu: '昨天... 今天...' để so sánh lịch trình hành động."
+            },
+            {
+                id: 36,
+                lesson: 3,
+                hanzi: "明天见! 明天八点半我们在学校见。",
+                pinyin: "Míngtiān jiàn! Míngtiān bā diǎn bàn wǒmen zài xuéxiào jiàn.",
+                vietnamese: "Ngày mai gặp lại! Ngày mai tám giờ rưỡi chúng ta gặp nhau ở trường.",
+                words: ["Ngày mai gặp lại!", "Ngày mai", "tám giờ rưỡi", "chúng ta gặp nhau", "ở trường."],
+                analysis: [
+                    { word: "八点半 (bā diǎn bàn)", role: "Thời gian cụ thể 8 giờ 30 phút", meaning: "8 giờ rưỡi" },
+                    { word: "在学校 (zài xuéxiào)", role: "Giới từ + Địa điểm chỉ nơi chốn", meaning: "Ở tại trường học" },
+                    { word: "见 (jiàn)", role: "Động từ chính gặp mặt", meaning: "Gặp / Gặp lại" }
+                ],
+                grammar: "Cấu trúc giới từ nơi chốn: 'Chủ ngữ + 在 + Địa điểm + Động từ'. Luôn giới thiệu nơi chốn trước hành động."
+            },
+            {
+                id: 37,
+                lesson: 5,
+                hanzi: "对不起, 那是我爸爸, 不是我老师。",
+                pinyin: "Duìbuqǐ, nà shì wǒ bàba, bú shì wǒ lǎoshī.",
+                vietnamese: "Xin lỗi, đó là bố tôi, không phải giáo viên của tôi.",
+                words: ["Xin lỗi,", "đó là bố tôi,", "không phải", "giáo viên của tôi."],
+                analysis: [
+                    { word: "那 (nà)", role: "Đại từ chỉ thị ở xa", meaning: "Đó / Kia" },
+                    { word: "我爸爸 (wǒ bàba)", role: "Danh từ bố tôi", meaning: "Bố tôi" },
+                    { word: "不是 (bú shì)", role: "Phủ định của hệ động từ 是", meaning: "Không phải là" },
+                    { word: "我老师 (wǒ lǎoshī)", role: "Danh từ thầy giáo tôi", meaning: "Giáo viên tôi" }
+                ],
+                grammar: "Biến điệu của '不' trước động từ '是' mang thanh 4: chuyển sang thanh 2 đọc thành 'bú'."
+            },
+            {
+                id: 38,
+                lesson: 3,
+                hanzi: "谁去邮局? 妈妈去邮局寄信。",
+                pinyin: "Shéi qù yóujú? Māma qù yóujú jì xìn.",
+                vietnamese: "Ai đi bưu điện? Mẹ đi bưu điện gửi thư.",
+                words: ["Ai đi bưu điện?", "Mẹ đi bưu điện", "gửi thư."],
+                analysis: [
+                    { word: "谁 (Shéi)", role: "Hỏi danh tính chủ ngữ", meaning: "Ai" },
+                    { word: "去邮局 (qù yóujú)", role: "Đi bưu điện", meaning: "Đi bưu điện" },
+                    { word: "寄信 (jì xìn)", role: "Hành động gửi thư bưu cục", meaning: "Gửi thư" }
+                ],
+                grammar: "Mô hình hỏi đáp trực tiếp của câu liên động chỉ mục đích. Chủ ngữ hỏi thay thế trực tiếp vào vị trí của đại từ '谁'."
+            },
+            {
+                id: 39,
+                lesson: 5,
+                hanzi: "为什么你喜欢喝咖啡? 因为咖啡很好喝。",
+                pinyin: "Wèishénme nǐ xǐhuan hē kāfēi? Yīnwèi kāfēi hěn hǎohē.",
+                vietnamese: "Tại sao bạn thích uống cà phê? Vì cà phê rất ngon.",
+                words: ["Tại sao", "bạn thích uống cà phê?", "Vì", "cà phê rất ngon."],
+                analysis: [
+                    { word: "为什么 (Wèishénme)", role: "Tại sao", meaning: "Tại sao" },
+                    { word: "因为 (yīnwèi)", role: "Liên từ chỉ nguyên nhân trả lời", meaning: "Bởi vì / Vì" },
+                    { word: "很好喝 (hěn hǎohē)", role: "Rất ngon (dùng cho đồ uống)", meaning: "Rất ngon / Rất dễ uống" }
+                ],
+                grammar: "Phân biệt '好吃' (hǎochī - ngon, dùng cho đồ ăn) và '好喝' (hǎohē - ngon, dùng cho đồ uống)."
+            },
+            {
+                id: 40,
+                lesson: 4,
+                hanzi: "星期五下午, 我去哥哥的公司。",
+                pinyin: "Xīngqīwǔ xiàwǔ, wǒ qù gēge de gōngsī.",
+                vietnamese: "Chiều thứ sáu, tôi đi đến công ty của anh trai.",
+                words: ["Chiều thứ sáu,", "tôi đi đến", "công ty của anh trai."],
+                analysis: [
+                    { word: "星期五下午 (Xīngqīwǔ xiàwǔ)", role: "Thứ trong tuần + Buổi trong ngày", meaning: "Chiều thứ sáu" },
+                    { word: "我去 (wǒ qù)", role: "Tôi đi", meaning: "Tôi đi" },
+                    { word: "哥哥的公司 (gēge de gōngsī)", role: "Định ngữ sở hữu đầy đủ", meaning: "Công ty của anh trai" }
+                ],
+                grammar: "Khi định ngữ chỉ quan hệ sở hữu đối với một tổ chức/địa điểm, sử dụng trợ từ sở hữu '的' để diễn tả rõ ràng."
+            },
+            {
+                id: 41,
+                lesson: 2,
+                hanzi: "老师说汉语不太难, 我很喜欢。",
+                pinyin: "Lǎoshī shuō Hànyǔ bú tài nán, wǒ hěn xǐhuan.",
+                vietnamese: "Thầy giáo nói tiếng Trung không khó lắm, tôi rất thích.",
+                words: ["Thầy giáo nói", "tiếng Trung", "không khó lắm,", "tôi rất thích."],
+                analysis: [
+                    { word: "老师说 (Lǎoshī shuō)", role: "Chủ ngữ + Động từ phát ngôn", meaning: "Thầy giáo nói" },
+                    { word: "汉语 (Hànyǔ)", role: "Danh từ", meaning: "Tiếng Trung" },
+                    { word: "不太难 (bú tài nán)", role: "Trạng thái", meaning: "Không khó lắm" },
+                    { word: "我很喜欢 (wǒ hěn xǐhuan)", role: "Tôi rất thích", meaning: "Tôi rất thích" }
+                ],
+                grammar: "Động từ '说' (nói, phát biểu) đóng vai trò giới thiệu một mệnh đề tân ngữ đứng sau nó."
+            },
+            {
+                id: 42,
+                lesson: 4,
+                hanzi: "昨天星期三, 哥哥不去公司工作。",
+                pinyin: "Zuótiān xīngqīsān, gēge bú qù gōngsī gōngzuò.",
+                vietnamese: "Hôm qua thứ tư, anh trai không đi công ty làm việc.",
+                words: ["Hôm qua thứ tư,", "anh trai", "không đi công ty", "làm việc."],
+                analysis: [
+                    { word: "昨天星期三 (Zuótiān xīngqīsān)", role: "Thời gian ngày hôm qua", meaning: "Hôm qua thứ tư" },
+                    { word: "哥哥 (gēge)", role: "Chủ ngữ", meaning: "Anh trai" },
+                    { word: "不去 (bú qù)", role: "Phủ định đi", meaning: "Không đi" },
+                    { word: "公司工作 (gōngsī gōngzuò)", role: "Địa điểm + Mục tiêu công tác", meaning: "Công ty làm việc" }
+                ],
+                grammar: "Sử dụng phó từ '不' trước cụm liên động biểu thị ý phủ định hoàn toàn hành trình."
+            },
+            {
+                id: 43,
+                lesson: 5,
+                hanzi: "妹妹喜欢什么颜色? 她喜欢白色。",
+                pinyin: "Mèimei xǐhuan shénme yánsè? Tā xǐhuan báisè.",
+                vietnamese: "Em gái thích màu gì? Nó thích màu trắng.",
+                words: ["Em gái thích", "màu gì?", "Nó thích", "màu trắng."],
+                analysis: [
+                    { word: "什么颜色 (shénme yánsè)", role: "Cụm hỏi màu sắc", meaning: "Màu gì" },
+                    { word: "她 (tā)", role: "Đại từ chỉ nữ giới ngôi thứ 3", meaning: "Em ấy / Cô ấy" },
+                    { word: "白色 (báisè)", role: "Tân ngữ màu sắc", meaning: "Màu trắng" }
+                ],
+                grammar: "Màu trắng '白/白色' là tính từ chỉ màu sắc cốt lõi xuất hiện sớm nhất trong HSK 1 Bài 1."
+            },
+            {
+                id: 44,
+                lesson: 1,
+                hanzi: "这儿有一只大白猫, 那儿有一只黑猫。",
+                pinyin: "Zhèr yǒu yì zhī dà bái māo, nàr yǒu yì zhī hēi māo.",
+                vietnamese: "Ở đây có một con mèo trắng lớn, ở kia có một con mèo đen.",
+                words: ["Ở đây", "có một con mèo trắng lớn,", "ở kia có", "một con mèo đen."],
+                analysis: [
+                    { word: "这儿 (Zhèr)", role: "Trạng ngữ chỉ địa điểm gần", meaning: "Ở đây / Tại đây" },
+                    { word: "有一只 (yǒu yì zhī)", role: "Có + Lượng từ động vật nhỏ", meaning: "Có một con" },
+                    { word: "大白猫 (dà bái māo)", role: "Mèo trắng to", meaning: "Con mèo trắng lớn" },
+                    { word: "黑猫 (hēi māo)", role: "Mèo đen", meaning: "Mèo đen" }
+                ],
+                grammar: "Sử dụng động từ tồn tại '有' (yǒu - có) để chỉ sự xuất hiện của sự vật tại các địa điểm cụ thể."
+            },
+            {
+                id: 45,
+                lesson: 5,
+                hanzi: "最近我有很多工作, 身体很累。",
+                pinyin: "Zuìjìn wǒ yǒu hěn duō gōngzuò, shēntǐ hěn lèi.",
+                vietnamese: "Gần đây tôi có rất nhiều công việc, cơ thể rất mệt.",
+                words: ["Gần đây tôi có", "rất nhiều công việc,", "cơ thể", "rất mệt."],
+                analysis: [
+                    { word: "最近 (Zuìjìn)", role: "Trạng ngữ thời gian gần đây", meaning: "Gần đây" },
+                    { word: "很多工作 (hěn duō gōngzuò)", role: "Rất nhiều + Danh từ công việc", meaning: "Rất nhiều công việc" },
+                    { word: "身体 (shēntǐ)", role: "Chủ ngữ 2", meaning: "Cơ thể / Thân thể" },
+                    { word: "很累 (hěn lèi)", role: "Vị ngữ mệt mỏi", meaning: "Rất mệt" }
+                ],
+                grammar: "Tính từ '累' (lèi - mệt) thường đi kèm phó từ mức độ 'hěn' để thiết lập câu vị ngữ tính từ."
+            },
+            {
+                id: 46,
+                lesson: 5,
+                hanzi: "爸爸, 今天您去哪儿取钱?",
+                pinyin: "Bàba, jīntiān nín qù nǎr qǔ qián?",
+                vietnamese: "Bố ơi, hôm nay bố đi đâu để rút tiền ạ?",
+                words: ["Bố ơi,", "hôm nay", "bố đi đâu", "để rút tiền ạ?"],
+                analysis: [
+                    { word: "爸爸 (Bàba)", role: "Thành phần gọi đáp đứng đầu câu", meaning: "Bố ơi / Ba ơi" },
+                    { word: "今天 (jīntiān)", role: "Trạng ngữ chỉ thời gian hôm nay", meaning: "Hôm nay" },
+                    { word: "您 (nín)", role: "Chủ ngữ tôn kính ngôi thứ hai", meaning: "Bố (ngôi xưng tôn trọng)" },
+                    { word: "去哪儿 (qù nǎr)", role: "Động từ di chuyển 1 + Hỏi địa điểm", meaning: "Đi đâu" },
+                    { word: "取钱 (qǔ qián)", role: "Động từ 2 + Tân ngữ mục đích", meaning: "Rút tiền" }
+                ],
+                grammar: "Sử dụng đại từ nghi vấn nơi chốn '哪儿' lồng ghép trực tiếp vào câu liên động để hỏi địa điểm hành động."
+            },
+            {
+                id: 47,
+                lesson: 5,
+                hanzi: "老师, 请问今天下午有汉语课吗?",
+                pinyin: "Lǎoshī, qǐngwèn jīntiān xiàwǔ yǒu Hànyǔ kè ma?",
+                vietnamese: "Thầy giáo ơi, cho hỏi chiều hôm nay có tiết học tiếng Trung không?",
+                words: ["Thầy giáo ơi,", "cho hỏi", "chiều hôm nay", "có tiết học tiếng Trung", "không?"],
+                analysis: [
+                    { word: "请问 (Qǐngwèn)", role: "Cụm từ dạo đầu lịch sự hỏi han", meaning: "Xin hỏi / Cho hỏi" },
+                    { word: "今天下午 (jīntiān xiàwǔ)", role: "Thời gian chi tiết", meaning: "Chiều hôm nay" },
+                    { word: "有汉语课 ma (yǒu Hànyǔ kè ma)", role: "Có tiết tiếng Trung không?", meaning: "Có tiết học tiếng Trung không" }
+                ],
+                grammar: "Cụm xã giao '请问' được kết cấu từ '请' (mời) + '问' (hỏi), dùng trước câu hỏi nghi vấn để tỏ ý tôn trọng."
+            },
+            {
+                id: 48,
+                lesson: 3,
+                hanzi: "弟弟星期天不学英语, 他去玩儿。",
+                pinyin: "Dìdi xīngqītiān bù xué Yīngyǔ, tā qù wánr.",
+                vietnamese: "Em trai chủ nhật không học tiếng Anh, nó đi chơi.",
+                words: ["Em trai", "chủ nhật", "không học tiếng Anh,", "nó", "đi chơi."],
+                analysis: [
+                    { word: "弟弟 (Dìdi)", role: "Chủ ngữ", meaning: "Em trai" },
+                    { word: "星期天 (xīngqītiān)", role: "Mốc thời gian chủ nhật", meaning: "Chủ nhật" },
+                    { word: "不学 (bù xué)", role: "Phủ định hành động học tập", meaning: "Không học" },
+                    { word: "英语 (Yīngyǔ)", role: "Tân ngữ tiếng Anh", meaning: "Tiếng Anh" },
+                    { word: "去玩儿 (qù wánr)", role: "Hành động đi chơi thư giãn", meaning: "Đi chơi" }
+                ],
+                grammar: "Phần đuôi cuốn lưỡi '儿' trong '玩儿' (wánr) là đặc trưng ngữ âm phổ biến của tiếng Phổ thông khu vực phía Bắc Trung Quốc."
+            },
+            {
+                id: 49,
+                lesson: 5,
+                hanzi: "这是我妈妈, 她今年五十八岁。",
+                pinyin: "Zhè shì wǒ māma, tā jīnnián wǔshíbā suì.",
+                vietnamese: "Đây là mẹ tôi, mẹ năm nay năm mươi tám tuổi.",
+                words: ["Đây là mẹ tôi,", "mẹ", "năm nay", "năm mươi tám tuổi."],
+                analysis: [
+                    { word: "这是 (Zhè shì)", role: "Cấu trúc giới thiệu gần", meaning: "Đây là" },
+                    { word: "我妈妈 (wǒ māma)", role: "Mẹ tôi (giản lược)", meaning: "Mẹ tôi" },
+                    { word: "今年 (jīnnián)", role: "Trạng ngữ chỉ thời gian năm nay", meaning: "Năm nay" },
+                    { word: "五十八岁 (wǔshíbā suì)", role: "Câu vị ngữ danh từ số tuổi", meaning: "58 tuổi" }
+                ],
+                grammar: "Khi nói về số tuổi, chỉ cần sử dụng tổ hợp 'Số đếm + 岁' (suì) làm vị ngữ trực tiếp, không dùng kèm chữ '是'."
+            },
+            {
+                id: 50,
+                lesson: 5,
+                hanzi: "越南语不难, 但是汉语很难。",
+                pinyin: "Yuènányǔ bù nán, dànshì Hànyǔ hěn nán.",
+                vietnamese: "Tiếng Việt không khó, nhưng tiếng Trung rất khó.",
+                words: ["Tiếng Việt", "không khó,", "nhưng", "tiếng Trung", "rất khó."],
+                analysis: [
+                    { word: "越南语 (Yuènányǔ)", role: "Chủ ngữ câu 1", meaning: "Tiếng Việt / Tiếng Việt Nam" },
+                    { word: "不难 (bù nán)", role: "Trạng thái câu 1", meaning: "Không khó" },
+                    { word: "dànshì (dànshì)", role: "Liên từ biểu thị sự chuyển ngoặt", meaning: "Nhưng / Nhưng mà" },
+                    { word: "汉语 (Hànyǔ)", role: "Chủ ngữ câu 2", meaning: "Tiếng Trung / Tiếng Hán" },
+                    { word: "很难 (hěn nán)", role: "Tính từ vị ngữ mang phó từ", meaning: "Rất khó" }
+                ],
+                grammar: "Liên từ nối chuyển ngoặt '但是' (dànshì) đứng đầu phân câu thứ hai để nhấn mạnh sự khác biệt hoàn toàn."
+            }
+        ];
+
+        // --- APPLICATION STATE ---
+        let currentMode = 'hybrid'; // 'hybrid', 'sentence', 'vietpinyin'
+        let selectedLessons = [1, 2, 3, 4, 5];
+        let currentPool = [];
+        let currentIndex = 0;
+        let activeItem = null; // Current item under test (vocab or sentence)
+        let activeHandbookTab = 'vocab'; // 'vocab', 'sentences'
+        
+        // Multi-step Hybrid state
+        let hybridStep = 1; // 1: MCQ translation, 2: Pinyin typing
+        let isMcqCorrect = null;
+        let isPinyinCorrect = null;
+
+        // Mode Vietnamese to Pinyin state
+        let hintRevealed = false;
+
+        let streak = 0;
+        let score = 0;
+        let chosenWords = []; // For sentence decoder scrambles
+        let canAnswer = true;
+        let audioCtx = null; // HTML Web Audio API
+
+        // --- STREAMING_CHUNK: Cài đặt hệ thống phát âm tiếng Trung chuẩn (TTS) và Audio Feedback vui nhộn ---
+        // --- WEB AUDIO API CHIMES (Instant gratifying feedback) ---
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+                
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                const now = audioCtx.currentTime;
+                
+                if (type === 'correct') {
+                    // Upward bright major chord
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                    
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.connect(gain2);
+                    gain2.connect(audioCtx.destination);
+                    osc2.type = 'triangle';
+                    osc2.frequency.setValueAtTime(659.25, now + 0.08); // E5
+                    gain2.gain.setValueAtTime(0.12, now + 0.08);
+                    gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                    osc2.start(now + 0.08);
+                    osc2.stop(now + 0.35);
+                } else if (type === 'wrong') {
+                    // Sad downward buzzer
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(140, now);
+                    osc.frequency.linearRampToValueAtTime(90, now + 0.3);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                }
+            } catch (e) {
+                console.log("Audio playback was skipped/blocked by user gesture policies.");
+            }
+        }
+
+        // --- NATIVE SPEECH SYNTHESIS ENGINE ---
+        function speakChinese(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop current speech
+                const cleanText = text.replace(/_/g, " ");
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'zh-CN';
+                
+                const voices = window.speechSynthesis.getVoices();
+                const zhVoice = voices.find(v => v.lang.includes('zh-CN') || v.lang.includes('zh_CN'));
+                if (zhVoice) {
+                    utterance.voice = zhVoice;
+                }
+                
+                utterance.rate = 0.75; // Slower rate for HSK 1 learners
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // --- INITIALIZATION ---
+        window.onload = function() {
+            // Restore persistence progress if exists
+            streak = parseInt(localStorage.getItem('hsk_streak_v4') || '0');
+            score = parseInt(localStorage.getItem('hsk_score_v4') || '0');
+            
+            document.getElementById('streak-counter').innerText = streak + " ngày";
+            document.getElementById('score-counter').innerText = score + " EXP";
+            
+            generatePool();
+            loadQuestion();
+            renderHandbook();
+            
+            // Warmup Speech Voices
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.getVoices();
+            }
+        };
+
+        // --- POOL GENERATION ---
+        function selectAllLessons() {
+            const checkboxes = document.querySelectorAll('#lesson-list input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateLessonSelection();
+        }
+
+        function updateLessonSelection() {
+            const checkboxes = document.querySelectorAll('#lesson-list input[type="checkbox"]');
+            selectedLessons = [];
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    selectedLessons.push(parseInt(cb.value));
+                }
+            });
+            
+            if (selectedLessons.length === 0) {
+                checkboxes[0].checked = true;
+                selectedLessons = [1];
+            }
+            
+            generatePool();
+            currentIndex = 0;
+            loadQuestion();
+            renderHandbook();
+        }
+
+        function generatePool() {
+            if (currentMode === 'sentence' || currentMode === 'vietpinyin') {
+                currentPool = sentenceData.filter(s => selectedLessons.includes(s.lesson));
+            } else {
+                currentPool = vocabData.filter(v => selectedLessons.includes(v.lesson));
+            }
+            // Shuffle
+            currentPool.sort(() => Math.random() - 0.5);
+            document.getElementById('total-count').innerText = currentPool.length;
+        }
+
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            // Sidebar buttons visual state
+            const buttons = ['hybrid', 'sentence', 'vietpinyin'];
+            buttons.forEach(btn => {
+                const el = document.getElementById('btn-mode-' + btn);
+                if (btn === mode) {
+                    el.className = "w-full text-left p-3 rounded-xl border-2 transition-all duration-200 flex items-center space-x-3.5 bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-100 animate-pop";
+                    el.querySelector('div').className = "w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center shrink-0";
+                    el.querySelector('div').classList.remove('text-slate-500');
+                } else {
+                    el.className = "w-full text-left p-3 rounded-xl border-2 transition-all duration-200 flex items-center space-x-3.5 bg-white border-slate-200 hover:border-slate-300 text-slate-800";
+                    el.querySelector('div').className = "w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0";
+                }
+            });
+
+            const badge = document.getElementById('current-badge');
+            if (mode === 'hybrid') badge.innerText = "Thử Thách Kép";
+            if (mode === 'sentence') badge.innerText = "Giải Mã Câu";
+            if (mode === 'vietpinyin') badge.innerText = "Dịch Câu Ra Pinyin";
+
+            generatePool();
+            currentIndex = 0;
+            loadQuestion();
+        }
+
+        // --- QUESTION ENGINE LOADING ---
+        function loadQuestion() {
+            canAnswer = true;
+            hybridStep = 1;
+            isMcqCorrect = null;
+            isPinyinCorrect = null;
+            hintRevealed = false;
+
+            if (currentPool.length === 0) {
+                document.getElementById('arena-content').innerHTML = `
+                    <div class="text-center py-12 animate-pop">
+                        <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-folder-open text-2xl"></i>
+                        </div>
+                        <h4 class="font-extrabold text-slate-700 text-base">Bài học chưa được chọn</h4>
+                        <p class="text-slate-500 text-xs mt-1.5 max-w-xs mx-auto">Vui lòng chọn thêm ít nhất một bài học khác trong danh mục bên trái để bắt đầu luyện tập.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (currentIndex >= currentPool.length) {
+                currentIndex = 0;
+                currentPool.sort(() => Math.random() - 0.5);
+            }
+
+            activeItem = currentPool[currentIndex];
+            
+            // Progress Bar & Indicators
+            document.getElementById('question-progress').innerText = `Câu ${currentIndex + 1}/${currentPool.length}`;
+            const pct = ((currentIndex + 1) / currentPool.length) * 100;
+            document.getElementById('progress-bar-fill').style.width = pct + "%";
+            document.getElementById('learned-count').innerText = currentIndex;
+
+            if (currentMode === 'hybrid') {
+                renderHybridChallenge();
+            } else if (currentMode === 'sentence') {
+                renderSentenceChallenge();
+            } else if (currentMode === 'vietpinyin') {
+                renderVietPinyinChallenge();
+            }
+        }
+
+        // --- STREAMING_CHUNK: Phát triển hệ thống tự gõ chuyển dấu thông minh Pinyin (hao3 -> hǎo) ---
+        // --- AUTOMATIC PINYIN TONE CONVERTER ENGINE ---
+        function convertPinyinTones(text) {
+            const toneMap = {
+                'a': ['ā', 'á', 'ǎ', 'à'],
+                'o': ['ō', 'ó', 'ǒ', 'ò'],
+                'e': ['ē', 'é', 'ě', 'è'],
+                'i': ['ī', 'í', 'ǐ', 'ì'],
+                'u': ['ū', 'ú', 'ǔ', 'ù'],
+                'v': ['ǖ', 'ǘ', 'ǚ', 'ǜ'],
+                'ü': ['ǖ', 'ǘ', 'ǚ', 'ǜ']
+            };
+
+            return text.replace(/([a-g-n-r-u-v-ü]+)([1-4])/gi, function(match, syllable, toneNum) {
+                let toneIndex = parseInt(toneNum) - 1;
+                let originalSyllable = syllable;
+                syllable = syllable.toLowerCase();
+                
+                let targetVowel = '';
+                
+                if (syllable.indexOf('a') !== -1) {
+                    targetVowel = 'a';
+                } else if (syllable.indexOf('e') !== -1) {
+                    targetVowel = 'e';
+                } else if (syllable.indexOf('ou') !== -1) {
+                    targetVowel = 'o';
+                } else if (syllable.indexOf('ui') !== -1) {
+                    targetVowel = 'i';
+                } else if (syllable.indexOf('iu') !== -1) {
+                    targetVowel = 'u';
+                } else {
+                    const vowels = syllable.split('').filter(c => 'aeiouyüv'.indexOf(c) !== -1);
+                    if (vowels.length > 0) {
+                        targetVowel = vowels[vowels.length - 1];
+                    }
+                }
+
+                if (targetVowel && toneMap[targetVowel]) {
+                    const toneMark = toneMap[targetVowel][toneIndex];
+                    return originalSyllable.replace(new RegExp(targetVowel, 'i'), function(m) {
+                        return (m === m.toUpperCase()) ? toneMark.toUpperCase() : toneMark;
+                    });
+                }
+                return match;
+            });
+        }
+
+        function handlePinyinInput(inputEl) {
+            let cursor = inputEl.selectionStart;
+            let val = inputEl.value;
+            
+            // Standardize u: and v to ü
+            let cleanVal = val.replace(/u:/g, 'ü').replace(/v/g, 'ü');
+            let converted = convertPinyinTones(cleanVal);
+            
+            if (converted !== val) {
+                inputEl.value = converted;
+                let diff = converted.length - val.length;
+                inputEl.setSelectionRange(cursor + diff, cursor + diff);
+            }
+        }
+
+        // --- HYBRID CHALLENGE GENERATOR ---
+        function renderHybridChallenge() {
+            let incorrectOptions = vocabData.filter(v => v.id !== activeItem.id);
+            incorrectOptions.sort(() => Math.random() - 0.5);
+            let options = [activeItem, incorrectOptions[0], incorrectOptions[1], incorrectOptions[2]];
+            options.sort(() => Math.random() - 0.5);
+
+            document.getElementById('arena-content').innerHTML = `
+                <div class="w-full max-w-xl text-center animate-pop flex flex-col items-center">
+                    
+                    <!-- Hanzi Card -->
+                    <div class="bg-indigo-50/50 border border-indigo-100 rounded-3xl p-6 sm:p-8 w-full mb-6 relative overflow-hidden transition-theme">
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-indigo-600 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">BÀI ${activeItem.lesson}</span>
+                        </div>
+                        <div class="mb-2">
+                            <button onclick="speakChinese('${activeItem.hanzi}')" class="text-indigo-600 hover:text-indigo-800 transition-all p-3 rounded-full hover:bg-indigo-100/50" title="Nghe phát âm">
+                                <i class="fa-solid fa-volume-high text-2xl"></i>
+                            </button>
+                        </div>
+                        <div class="font-hanzi text-7xl font-extrabold text-slate-800 tracking-wider mb-1 select-all">${activeItem.hanzi}</div>
+                        <div id="pinyin-hidden-placeholder" class="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full inline-block mt-2">Pinyin đang bị khóa...</div>
+                        <div id="pinyin-reveal" class="text-lg font-bold text-indigo-600 select-all hidden mt-2">${activeItem.pinyin}</div>
+                    </div>
+
+                    <!-- Step-by-Step Flow Status -->
+                    <div class="flex items-center space-x-2 w-full mb-5 justify-center">
+                        <div id="step-badge-1" class="px-3 py-1 bg-indigo-600 text-white rounded-lg text-xs font-bold transition-all">Bước 1: Chọn Nghĩa (MCQ)</div>
+                        <div class="text-slate-400 text-xs font-bold">➔</div>
+                        <div id="step-badge-2" class="px-3 py-1 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold transition-all">Bước 2: Đoán Pinyin</div>
+                    </div>
+
+                    <!-- MCQ Choices Section (Step 1) -->
+                    <div id="hybrid-mcq-section" class="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                        ${options.map((opt, idx) => {
+                            const label = String.fromCharCode(65 + idx);
+                            return `
+                                <button onclick="handleMcqStep('${opt.meaning}', this)" class="mcq-choice-btn p-4 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-slate-50/50 text-left flex items-center space-x-3 group transition-all duration-150">
+                                    <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-indigo-50 text-slate-500 group-hover:text-indigo-700 font-extrabold flex items-center justify-center text-xs transition-colors shrink-0">${label}</span>
+                                    <span class="font-semibold text-slate-700 text-xs sm:text-sm leading-tight">${opt.meaning}</span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+
+                    <!-- Pinyin Input Section (Step 2 - initially disabled) -->
+                    <div id="hybrid-pinyin-section" class="w-full bg-slate-50 border border-slate-200 p-4 sm:p-5 rounded-2xl text-left opacity-40 pointer-events-none transition-all duration-300">
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Nhập đúng phiên âm của từ:</label>
+                        <div class="relative">
+                            <input type="text" id="pinyin-typing-input" oninput="handlePinyinInput(this)" onkeydown="if(event.key === 'Enter') handlePinyinStep()" autocomplete="off" placeholder="Gõ Pinyin (Ví dụ: hao3 -> hǎo hoặc máng)..." class="w-full bg-white border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 rounded-xl py-3 pl-4 pr-12 text-base font-bold text-slate-800 placeholder-slate-400 transition-all">
+                            <button onclick="handlePinyinStep()" class="absolute right-2 top-1.5 bg-indigo-600 hover:bg-indigo-700 text-white p-2.5 rounded-lg transition-colors">
+                                <i class="fa-solid fa-paper-plane text-xs"></i>
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-slate-400 mt-2.5 leading-relaxed">Gõ nhanh thông minh: Gõ chữ kèm số để hệ thống tự chuyển dấu (Ví dụ: <strong class="text-slate-500 font-bold">ma2</strong> -> <strong class="text-indigo-600 font-bold">má</strong>).</p>
+                    </div>
+
+                    <!-- Combined Step Feedback -->
+                    <div id="hybrid-feedback" class="hidden w-full mt-4 p-4 rounded-xl text-xs sm:text-sm font-bold text-left animate-pop"></div>
+
+                    <!-- Navigation Next -->
+                    <div id="hybrid-next-container" class="hidden mt-6 w-full justify-end">
+                        <button onclick="proceedToNextQuestion()" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-colors flex items-center space-x-1.5 shadow-sm">
+                            <span>Tiếp tục học</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                </div>
+            `;
+            setTimeout(() => speakChinese(activeItem.hanzi), 100);
+        }
+
+        // --- SUBMISSION CONTROLLERS FOR HYBRID ---
+        function handleMcqStep(selectedMeaning, clickedButton) {
+            if (hybridStep !== 1) return;
+            
+            const isCorrect = (selectedMeaning === activeItem.meaning);
+            const choiceButtons = document.querySelectorAll('.mcq-choice-btn');
+            
+            if (isCorrect) {
+                playSound('correct');
+                clickedButton.className = "mcq-choice-btn p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-800 flex items-center space-x-3 scale-[1.01] shadow-xs";
+                clickedButton.querySelector('span').className = "w-7 h-7 rounded-lg bg-emerald-500 text-white font-extrabold flex items-center justify-center text-xs shrink-0";
+                isMcqCorrect = true;
+                score += 10;
+            } else {
+                playSound('wrong');
+                clickedButton.className = "mcq-choice-btn p-4 rounded-2xl border-2 border-red-500 bg-red-50 text-red-800 flex items-center space-x-3 scale-[0.99]";
+                clickedButton.querySelector('span').className = "w-7 h-7 rounded-lg bg-red-500 text-white font-extrabold flex items-center justify-center text-xs shrink-0";
+                
+                // Highlight correct button
+                choiceButtons.forEach(btn => {
+                    if (btn.querySelector('span:last-child').innerText === activeItem.meaning) {
+                        btn.className = "mcq-choice-btn p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-800 flex items-center space-x-3 shadow-xs";
+                    }
+                });
+                isMcqCorrect = false;
+                streak = 0;
+            }
+
+            // Lock Choice buttons and unlock Pinyin Section
+            choiceButtons.forEach(btn => btn.setAttribute('disabled', 'true'));
+            
+            // Advance state
+            hybridStep = 2;
+            document.getElementById('step-badge-1').className = "px-3 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-bold transition-all";
+            document.getElementById('step-badge-2').className = "px-3 py-1 bg-indigo-600 text-white rounded-lg text-xs font-bold transition-all";
+            
+            // Visual activation of Step 2 Pinyin section
+            const pinyinSection = document.getElementById('hybrid-pinyin-section');
+            pinyinSection.className = "w-full bg-slate-50 border border-slate-300 p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 shadow-xs";
+            
+            setTimeout(() => {
+                const inp = document.getElementById('pinyin-typing-input');
+                if (inp) inp.focus();
+            }, 300);
+        }
+
+        function handlePinyinStep() {
+            if (hybridStep !== 2) return;
+            
+            const inputEl = document.getElementById('pinyin-typing-input');
+            const feedbackEl = document.getElementById('hybrid-feedback');
+            const placeholder = document.getElementById('pinyin-hidden-placeholder');
+            const reveal = document.getElementById('pinyin-reveal');
+            
+            if (!inputEl) return;
+            
+            let userVal = inputEl.value.trim().toLowerCase().replace(/\s+/g, '');
+            let correctVal = activeItem.pinyin.toLowerCase().replace(/\s+/g, '').replace(/u:/g, 'ü').replace(/v/g, 'ü');
+
+            const isCorrect = (userVal === correctVal);
+            isPinyinCorrect = isCorrect;
+
+            // Reveal correct answer on the card
+            placeholder.classList.add('hidden');
+            reveal.classList.remove('hidden');
+
+            feedbackEl.classList.remove('hidden');
+            
+            if (isCorrect) {
+                playSound('correct');
+                feedbackEl.className = "p-4 rounded-xl text-xs sm:text-sm font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 mt-4 animate-pop";
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check mr-2 text-emerald-600 text-base"></i>Hoàn hảo! Phiên âm hoàn toàn chuẩn xác.`;
+                score += 15;
+            } else {
+                playSound('wrong');
+                feedbackEl.className = "p-4 rounded-xl text-xs sm:text-sm font-bold bg-red-50 text-red-800 border border-red-200 mt-4 animate-pop";
+                feedbackEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2 text-red-600 text-base"></i>Phiên âm chưa chính xác. Đáp án chuẩn là: <span class="underline text-base ml-1 font-extrabold select-all">${activeItem.pinyin}</span>`;
+                streak = 0;
+            }
+
+            if (isMcqCorrect && isPinyinCorrect) {
+                streak++;
+                showStreakCelebration();
+            }
+
+            // Save stats
+            localStorage.setItem('hsk_streak_v4', streak);
+            localStorage.setItem('hsk_score_v4', score);
+            document.getElementById('streak-counter').innerText = streak + " ngày";
+            document.getElementById('score-counter').innerText = score + " EXP";
+
+            // Show Navigation button
+            document.getElementById('hybrid-next-container').classList.remove('hidden');
+            document.getElementById('hybrid-next-container').classList.add('flex');
+            
+            hybridStep = 3; // Finished
+        }
+
+        // --- STREAMING_CHUNK: Lập trình giao diện chế độ Giải mã Câu dài sắp xếp nghĩa ---
+        // --- MODE 2: SENTENCE BUILDER CHALLENGE (50 SENTENCES DETAILED) ---
+        function renderSentenceChallenge() {
+            chosenWords = [];
+            // Scaffold scrambled words
+            let scrambledWords = [...activeItem.words].sort(() => Math.random() - 0.5);
+
+            document.getElementById('arena-content').innerHTML = `
+                <div class="w-full max-w-2xl text-center animate-pop flex flex-col items-center">
+                    
+                    <div class="mb-4">
+                        <button onclick="speakChinese('${activeItem.hanzi}')" class="text-indigo-600 hover:text-indigo-800 transition-all p-3 rounded-full hover:bg-indigo-50" title="Phát âm câu">
+                            <i class="fa-solid fa-volume-high text-2xl"></i>
+                        </button>
+                    </div>
+
+                    <!-- Target Chinese Sentence -->
+                    <div class="font-hanzi text-3xl sm:text-4xl font-extrabold text-slate-800 tracking-wide mb-2 select-all leading-snug">${activeItem.hanzi}</div>
+                    <div class="text-indigo-500 text-xs sm:text-sm font-semibold mb-6 select-all font-mono">${activeItem.pinyin}</div>
+
+                    <!-- Workzone slot container -->
+                    <div class="w-full min-h-[75px] bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-4 flex flex-wrap gap-2.5 items-center justify-center mb-5" id="sentence-workzone">
+                        <p class="text-xs text-slate-400 font-semibold" id="workzone-placeholder">Hãy chọn các từ phía dưới ghép thành nghĩa tiếng Việt hoàn chỉnh cho câu trên:</p>
+                    </div>
+
+                    <!-- Scrambled Word Block Pool -->
+                    <div class="flex flex-wrap gap-2.5 justify-center mb-6" id="sentence-blocks-pool">
+                        ${scrambledWords.map((word, idx) => `
+                            <button onclick="selectWordBlock(this, '${word}')" class="word-block px-4 py-2.5 bg-white border border-slate-200 hover:border-indigo-500 text-xs sm:text-sm font-bold text-slate-700 rounded-xl shadow-2xs transition-all active:scale-95 duration-100">
+                                ${word}
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <!-- Command Buttons -->
+                    <div class="flex items-center space-x-3 w-full justify-center">
+                        <button onclick="resetSentenceWorkzone()" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl text-xs transition-colors flex items-center space-x-1.5">
+                            <i class="fa-solid fa-rotate-left"></i> <span>Ghép lại</span>
+                        </button>
+                        <button onclick="submitSentenceChallengeAnswer()" class="px-7 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition-all flex items-center space-x-1.5 shadow-md shadow-indigo-100">
+                            <i class="fa-solid fa-circle-check"></i> <span>Nộp bài dịch</span>
+                        </button>
+                    </div>
+
+                    <!-- Deep Analysis Table container -->
+                    <div id="sentence-analysis-container" class="hidden w-full mt-6 text-left">
+                        <!-- Dynamic analysis gets injected here -->
+                    </div>
+
+                </div>
+            `;
+            
+            setTimeout(() => speakChinese(activeItem.hanzi), 150);
+        }
+
+        function selectWordBlock(btnEl, word) {
+            if (!canAnswer) return;
+            
+            const placeholder = document.getElementById('workzone-placeholder');
+            if (placeholder) placeholder.style.display = 'none';
+
+            // Visual disable pool block
+            btnEl.classList.add('opacity-25', 'pointer-events-none');
+
+            // Inject word into active workzone
+            const workzone = document.getElementById('sentence-workzone');
+            
+            const token = document.createElement('span');
+            token.className = "px-3.5 py-1.5 bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs sm:text-sm font-bold rounded-xl shadow-2xs cursor-pointer hover:bg-red-50 hover:text-red-700 hover:border-red-200 transition-colors animate-pop flex items-center space-x-1.5";
+            token.innerHTML = `<span>${word}</span> <i class="fa-solid fa-circle-xmark text-xs opacity-60"></i>`;
+            
+            // Allow removal upon click
+            token.onclick = function() {
+                if (!canAnswer) return;
+                chosenWords = chosenWords.filter(w => w !== word);
+                btnEl.classList.remove('opacity-25', 'pointer-events-none');
+                token.remove();
+                
+                if (workzone.children.length === 1 && workzone.querySelector('#workzone-placeholder')) {
+                    placeholder.style.display = 'block';
+                }
+            };
+
+            workzone.appendChild(token);
+            chosenWords.push(word);
+        }
+
+        function resetSentenceWorkzone() {
+            if (!canAnswer) return;
+            renderSentenceChallenge();
+        }
+
+        function submitSentenceChallengeAnswer() {
+            if (!canAnswer) return;
+            canAnswer = false;
+
+            // Exact standard match
+            let userString = chosenWords.join(' ').replace(/,\s*/g, ',').replace(/\.\s*/g, '.').toLowerCase();
+            let correctString = activeItem.vietnamese.replace(/,\s*/g, ',').replace(/\.\s*/g, '.').toLowerCase();
+
+            const isCorrect = (userString === correctString);
+            const analysisEl = document.getElementById('sentence-analysis-container');
+            const workzone = document.getElementById('sentence-workzone');
+
+            analysisEl.classList.remove('hidden');
+
+            if (isCorrect) {
+                playSound('correct');
+                workzone.className = "w-full min-h-[75px] bg-emerald-50 border-2 border-emerald-400 rounded-2xl p-4 flex flex-wrap gap-2.5 items-center justify-center mb-5 transition-all shadow-xs";
+                streak++;
+                score += 30;
+                showStreakCelebration();
+            } else {
+                playSound('wrong');
+                workzone.className = "w-full min-h-[75px] bg-red-50 border-2 border-red-400 rounded-2xl p-4 flex flex-wrap gap-2.5 items-center justify-center mb-5 transition-all shadow-xs";
+                streak = 0;
+            }
+
+            renderGrammarAnalysis(analysisEl, isCorrect);
+
+            // Save progress
+            localStorage.setItem('hsk_streak_v4', streak);
+            localStorage.setItem('hsk_score_v4', score);
+            document.getElementById('streak-counter').innerText = streak + " ngày";
+            document.getElementById('score-counter').innerText = score + " EXP";
+        }
+
+        function renderGrammarAnalysis(containerEl, isCorrect) {
+            containerEl.innerHTML = `
+                <div class="bg-slate-50 rounded-2xl border border-slate-200 p-5 sm:p-6 animate-pop transition-theme">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="${isCorrect ? 'bg-emerald-500' : 'bg-red-500'} text-white text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-md">
+                            ${isCorrect ? 'Chính xác' : 'Chưa đúng'}
+                        </span>
+                        <span class="text-xs text-slate-500 font-bold">Nghĩa tiếng Việt chuẩn:</span>
+                    </div>
+
+                    <p class="font-extrabold text-slate-800 text-sm sm:text-base border-l-4 border-indigo-500 pl-3 mb-6 select-all">
+                        "${activeItem.vietnamese}"
+                    </p>
+
+                    <h4 class="font-bold text-xs text-indigo-900 mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrows-to-eye"></i>
+                        <span>Phân tích chi tiết cú pháp:</span>
+                    </h4>
+                    <div class="space-y-2.5 mb-6">
+                        ${activeItem.analysis.map(part => `
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-white border border-slate-100 rounded-xl p-3.5 gap-2 justify-between shadow-2xs">
+                                <div class="flex items-center space-x-2">
+                                    <span class="font-hanzi font-black text-slate-800 text-sm">${part.word}</span>
+                                </div>
+                                <div class="flex items-center space-x-2 text-right">
+                                    <span class="bg-indigo-50 text-indigo-700 font-semibold text-[10px] px-2 py-0.5 rounded-md">${part.role}</span>
+                                    <span class="text-xs text-slate-600 font-medium">→ ${part.meaning}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-xs text-amber-800">
+                        <h5 class="font-bold flex items-center mb-1.5 text-amber-900"><i class="fa-solid fa-graduation-cap text-amber-600 mr-1.5 text-sm"></i>Ngữ pháp HSK 1 tích hợp:</h5>
+                        <p class="leading-relaxed opacity-95">${activeItem.grammar}</p>
+                    </div>
+
+                    <div class="mt-6 flex justify-end">
+                        <button onclick="currentIndex++; loadQuestion();" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-colors flex items-center space-x-2 shadow-sm">
+                            <span>Câu tiếp theo</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- STREAMING_CHUNK: Tạo giao diện chế độ mới: HIỂN THỊ TIẾNG VIỆT -> YÊU CẦU GÕ PINYIN ---
+        // --- MODE 3: VIETNAMESE TO PINYIN CHALLENGE ---
+        function renderVietPinyinChallenge() {
+            document.getElementById('arena-content').innerHTML = `
+                <div class="w-full max-w-xl text-center animate-pop flex flex-col items-center">
+                    
+                    <!-- Vietnamese Meaning Card -->
+                    <div class="bg-indigo-50/50 border border-indigo-100 rounded-3xl p-6 sm:p-8 w-full mb-6 relative overflow-hidden transition-theme">
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-indigo-600 text-white text-[9px] px-2 py-0.5 rounded font-bold uppercase">BÀI ${activeItem.lesson}</span>
+                        </div>
+                        <div class="text-[10px] uppercase font-extrabold text-indigo-500 tracking-wider mb-2">Thử thách dịch thuật HSK 1</div>
+                        <div class="font-bold text-lg sm:text-2xl text-slate-800 leading-relaxed mb-4">"${activeItem.vietnamese}"</div>
+                        
+                        <!-- Toggle Hint Button -->
+                        <button onclick="togglePinyinHanziHint()" class="text-xs bg-indigo-100 text-indigo-700 font-bold px-3.5 py-1.5 rounded-xl hover:bg-indigo-200 transition-colors inline-flex items-center gap-1.5">
+                            <i class="fa-solid fa-eye"></i> <span id="hint-toggle-text">Xem gợi ý chữ Hán</span>
+                        </button>
+
+                        <div id="vietpinyin-hanzi-hint" class="hidden font-hanzi text-2xl font-extrabold text-slate-500 tracking-wider mt-4 animate-pop select-all">
+                            ${activeItem.hanzi}
+                        </div>
+                    </div>
+
+                    <!-- Input Pinyin Full Sentence -->
+                    <div class="w-full bg-white border border-slate-200 p-4 sm:p-6 rounded-2xl text-left shadow-2xs transition-theme">
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Gõ Pinyin của cả câu tương ứng:</label>
+                        <textarea id="vietpinyin-typing-input" oninput="handlePinyinInput(this)" placeholder="Nhập câu Pinyin (ví dụ: Jīntiān wǒ qù...)" rows="2" class="w-full bg-slate-50 border border-slate-200 focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 rounded-xl py-3 px-4 text-base font-bold text-slate-800 placeholder-slate-400 transition-all resize-none"></textarea>
+                        
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-3.5">
+                            <p class="text-[10px] text-slate-400 leading-normal max-w-xs">Gõ tắt nhanh: <strong class="text-slate-500">wo3 qu4</strong> chuyển thành <strong class="text-indigo-600">wǒ qù</strong>. Hệ thống tự động lọc dấu câu khi chấm!</p>
+                            <button onclick="submitVietPinyinAnswer()" class="w-full sm:w-auto px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition-colors flex items-center justify-center space-x-1.5 shadow-sm shrink-0">
+                                <i class="fa-solid fa-paper-plane"></i> <span>Gửi đáp án</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Feedback and detailed comparison -->
+                    <div id="vietpinyin-feedback-container" class="hidden w-full mt-6 text-left">
+                        <!-- Dynamic verification gets injected here -->
+                    </div>
+
+                </div>
+            `;
+        }
+
+        function togglePinyinHanziHint() {
+            const hintContainer = document.getElementById('vietpinyin-hanzi-hint');
+            const hintBtnText = document.getElementById('hint-toggle-text');
+            if (hintContainer.classList.contains('hidden')) {
+                hintContainer.classList.remove('hidden');
+                hintBtnText.innerText = "Ẩn gợi ý chữ Hán";
+                hintRevealed = true;
+            } else {
+                hintContainer.classList.add('hidden');
+                hintBtnText.innerText = "Xem gợi ý chữ Hán";
+            }
+        }
+
+        function submitVietPinyinAnswer() {
+            if (!canAnswer) return;
+            const inputEl = document.getElementById('vietpinyin-typing-input');
+            const feedbackContainer = document.getElementById('vietpinyin-feedback-container');
+            
+            if (!inputEl || !feedbackContainer) return;
+            canAnswer = false;
+
+            let userVal = inputEl.value.trim().toLowerCase();
+            let correctVal = activeItem.pinyin.toLowerCase();
+
+            // Smart comparison cleaner: remove spaces, periods, commas, question marks, and exclamation marks
+            function cleanForFuzzy(str) {
+                return str.replace(/[^a-zāáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜü]/g, '').replace(/u:/g, 'ü').replace(/v/g, 'ü');
+            }
+
+            let cleanedUser = cleanForFuzzy(userVal);
+            let cleanedCorrect = cleanForFuzzy(correctVal);
+
+            const isCorrect = (cleanedUser === cleanedCorrect);
+            feedbackContainer.classList.remove('hidden');
+
+            if (isCorrect) {
+                playSound('correct');
+                streak++;
+                score += hintRevealed ? 15 : 30; // Fewer points if hint was used
+                showStreakCelebration();
+            } else {
+                playSound('wrong');
+                streak = 0;
+            }
+
+            // Save stats
+            localStorage.setItem('hsk_streak_v4', streak);
+            localStorage.setItem('hsk_score_v4', score);
+            document.getElementById('streak-counter').innerText = streak + " ngày";
+            document.getElementById('score-counter').innerText = score + " EXP";
+
+            feedbackContainer.innerHTML = `
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-6 animate-pop transition-theme">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="${isCorrect ? 'bg-emerald-500' : 'bg-red-500'} text-white text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-md">
+                            ${isCorrect ? 'Chính xác' : 'Chưa đúng'}
+                        </span>
+                        <span class="text-xs text-slate-500 font-bold">So sánh kết quả dịch Pinyin:</span>
+                    </div>
+
+                    <!-- Comparison list -->
+                    <div class="space-y-3 mb-6">
+                        <div class="bg-white p-3 rounded-xl border border-slate-100">
+                            <span class="block text-[10px] uppercase font-bold text-slate-400 mb-0.5">Đáp án chuẩn của hệ thống:</span>
+                            <span class="font-bold text-indigo-600 text-sm sm:text-base select-all font-mono">${activeItem.pinyin}</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-100">
+                            <span class="block text-[10px] uppercase font-bold text-slate-400 mb-0.5">Bài gõ của bạn:</span>
+                            <span class="font-bold ${isCorrect ? 'text-emerald-600' : 'text-red-500'} text-sm sm:text-base select-all font-mono">${inputEl.value || '(Trống)'}</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-100 rounded-xl p-4 mb-6">
+                        <div class="flex items-center space-x-2.5 mb-2">
+                            <span class="font-hanzi font-black text-slate-800 text-xl">${activeItem.hanzi}</span>
+                            <button onclick="speakChinese('${activeItem.hanzi}')" class="p-1.5 text-indigo-600 hover:text-indigo-800 rounded-lg hover:bg-slate-100 transition-colors">
+                                <i class="fa-solid fa-volume-high text-xs"></i> Nghe phát âm
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium leading-relaxed">
+                            <strong class="text-slate-700">Ngữ pháp:</strong> ${activeItem.grammar}
+                        </p>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button onclick="currentIndex++; loadQuestion();" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-colors flex items-center space-x-2 shadow-sm">
+                            <span>Câu tiếp theo</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- SKIPPING QUESTION ---
+        function skipQuestion() {
+            streak = 0;
+            localStorage.setItem('hsk_streak_v4', streak);
+            document.getElementById('streak-counter').innerText = streak + " ngày";
+            currentIndex++;
+            loadQuestion();
+        }
+
+        // --- STREAK CELEBRATION MODAL/EFFECT ---
+        function showStreakCelebration() {
+            if (streak > 0 && streak % 3 === 0) {
+                score += 15; // Bonus XP
+                const bonus = document.createElement('div');
+                bonus.className = "fixed bottom-10 right-10 bg-amber-500 text-white py-3.5 px-6 rounded-2xl font-bold shadow-lg animate-pop z-50 flex items-center space-x-2.5 border border-amber-400";
+                bonus.innerHTML = `
+                    <i class="fa-solid fa-fire text-lg animate-bounce text-white"></i>
+                    <span class="text-xs sm:text-sm">Chuỗi vàng x${streak}! Nhận thêm +15 EXP!</span>
+                `;
+                document.body.appendChild(bonus);
+                setTimeout(() => bonus.remove(), 2500);
+            }
+        }
+
+        // --- HANDBOOK TABS SWITCHER ---
+        function switchHandbookTab(tab) {
+            activeHandbookTab = tab;
+            const btnVocab = document.getElementById('tab-btn-vocab');
+            const btnSentences = document.getElementById('tab-btn-sentences');
+
+            if (tab === 'vocab') {
+                btnVocab.className = "px-3.5 py-1.5 rounded-lg transition-all duration-200 bg-white text-slate-800 shadow-2xs font-extrabold";
+                btnSentences.className = "px-3.5 py-1.5 rounded-lg transition-all duration-200";
+            } else {
+                btnSentences.className = "px-3.5 py-1.5 rounded-lg transition-all duration-200 bg-white text-slate-800 shadow-2xs font-extrabold";
+                btnVocab.className = "px-3.5 py-1.5 rounded-lg transition-all duration-200";
+            }
+            renderHandbook();
+        }
+
+        // --- HANDBOOK RENDER ENGINE (DYNAMIC DICTIONARY + 50 SENTENCES TABLE) ---
+        function renderHandbook() {
+            const container = document.getElementById('handbook-content-container');
+            
+            if (activeHandbookTab === 'vocab') {
+                const filteredList = vocabData.filter(v => selectedLessons.includes(v.lesson));
+                if (filteredList.length === 0) {
+                    container.innerHTML = `<p class="p-6 text-center text-xs text-slate-400 font-bold">Không tìm thấy từ vựng khả dụng.</p>`;
+                    return;
+                }
+
+                let html = `
+                    <table class="min-w-full divide-y divide-slate-100 text-left text-xs text-slate-600 font-semibold">
+                        <tbody class="divide-y divide-slate-100 bg-white">
+                `;
+
+                filteredList.forEach(item => {
+                    html += `
+                        <tr class="hover:bg-slate-50/50 transition-colors handbook-row" data-search="${item.hanzi} ${item.pinyin} ${item.meaning}">
+                            <td class="px-4 py-3 text-slate-400 font-bold">Bài ${item.lesson}</td>
+                            <td class="px-4 py-3 font-hanzi text-base font-black text-slate-800">${item.hanzi}</td>
+                            <td class="px-4 py-3 text-indigo-600 font-bold font-mono">${item.pinyin}</td>
+                            <td class="px-4 py-3"><span class="px-2 py-0.5 bg-slate-100 rounded-md text-slate-500 font-bold">${item.type}</span></td>
+                            <td class="px-4 py-3 text-slate-700">${item.meaning}</td>
+                            <td class="px-4 py-3 text-right">
+                                <button onclick="speakChinese('${item.hanzi}')" class="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors">
+                                    <i class="fa-solid fa-volume-high text-xs"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table>`;
+                container.innerHTML = html;
+
+            } else {
+                // Sentences handbook tab (Exactly 50 items)
+                const filteredList = sentenceData.filter(s => selectedLessons.includes(s.lesson));
+                if (filteredList.length === 0) {
+                    container.innerHTML = `<p class="p-6 text-center text-xs text-slate-400 font-bold">Không tìm thấy câu đàm thoại khả dụng.</p>`;
+                    return;
+                }
+
+                let html = `
+                    <table class="min-w-full divide-y divide-slate-100 text-left text-xs text-slate-600 font-semibold">
+                        <tbody class="divide-y divide-slate-100 bg-white">
+                `;
+
+                filteredList.forEach(item => {
+                    html += `
+                        <tr class="hover:bg-slate-50/50 transition-colors handbook-row" data-search="${item.hanzi} ${item.pinyin} ${item.vietnamese}">
+                            <td class="px-4 py-3 text-indigo-500 font-bold shrink-0">B. ${item.lesson}</td>
+                            <td class="px-4 py-3 font-hanzi text-sm font-bold text-slate-800">${item.hanzi}</td>
+                            <td class="px-4 py-3 text-indigo-600 font-semibold font-mono">${item.pinyin}</td>
+                            <td class="px-4 py-3 text-slate-700 font-medium">${item.vietnamese}</td>
+                            <td class="px-4 py-3 text-right">
+                                <button onclick="speakChinese('${item.hanzi}')" class="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors">
+                                    <i class="fa-solid fa-volume-high text-xs"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table>`;
+                container.innerHTML = html;
+            }
+        }
+
+        function filterHandbook() {
+            const query = document.getElementById('dict-search').value.toLowerCase().trim();
+            const rows = document.querySelectorAll('.handbook-row');
+
+            rows.forEach(row => {
+                const text = row.getAttribute('data-search').toLowerCase();
+                if (text.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // --- STREAMING_CHUNK: Trình đổi chủ đề giao diện nhạy bén dựa trên bảng màu token chọn sẵn ---
+        // --- THEME SWAPPING MANAGER ---
+        function setTheme(theme) {
+            document.body.classList.remove('theme-indigo', 'theme-rose', 'theme-dark');
+            
+            const btnThemes = ['indigo', 'rose', 'dark'];
+            btnThemes.forEach(t => {
+                const el = document.getElementById('btn-theme-' + t);
+                if (t === theme) {
+                    el.className = "px-3 py-1.5 rounded-lg transition-all duration-200 bg-white shadow-xs text-indigo-600 font-bold";
+                    if (t === 'indigo') el.classList.add('text-indigo-600');
+                    if (t === 'rose') el.classList.add('text-rose-600');
+                    if (t === 'dark') el.classList.add('text-slate-800');
+                } else {
+                    el.className = "px-3 py-1.5 rounded-lg transition-all duration-200";
+                }
+            });
+
+            const mainProgressBar = document.getElementById('progress-bar-fill');
+
+            if (theme === 'indigo') {
+                document.body.className = "bg-slate-50 text-slate-800 transition-theme min-h-screen flex flex-col";
+                mainProgressBar.className = "bg-indigo-600 h-1.5 transition-all duration-300";
+            } else if (theme === 'rose') {
+                document.body.className = "bg-rose-50/20 text-slate-800 transition-theme min-h-screen flex flex-col";
+                mainProgressBar.className = "bg-rose-500 h-1.5 transition-all duration-300";
+            } else if (theme === 'dark') {
+                document.body.className = "bg-slate-900 text-slate-100 transition-theme min-h-screen flex flex-col";
+                mainProgressBar.className = "bg-slate-500 h-1.5 transition-all duration-300";
+            }
+        }
+    </script>
+</body>
+</html>
+```
+eof
+
+### Tóm tắt các nâng cấp mới nhất:
+1. **Thiết lập Chế độ thứ 3 chuyên biệt:** Bạn có thể chuyển sang chế độ **"Dịch Pinyin từ Tiếng Việt"** ngay trên thanh tùy chọn Chế độ học tập ở thanh bên trái.
+2. **Bộ gõ Pinyin Câu dài tự động chuyển đổi:** Khi gõ cả câu dài dạng `Ji1ntia1n wo3 qu4 yi2ha2ng.` hệ thống sẽ tức khắc ghim dấu thành `Jīntiān wǒ qù yínháng.` giúp bạn vừa ghi nhớ cách phát âm câu vừa làm quen mặt chữ chuẩn.
+3. **Fuzzy Matching thông minh:** Hệ thống không chấm điểm cứng nhắc (như dấu chấm, dấu phẩy, khoảng trắng). Chỉ cần toàn bộ nguyên âm và thanh điệu Pinyin của bạn chính xác, câu trả lời sẽ được duyệt đúng!
+
+Mời bạn bấm chọn nút **Preview** để trực tiếp học tập và luyện dịch 50 câu đàm thoại dài HSK 1 nhé!
